@@ -27,14 +27,18 @@ ansible_network_os: arista.eos.eos
 
 ## Build Configs
 
-The below ansible-play will build ther AVD generated configurations and store them in a local directory `intended/configs`.  
+The command below will run an ansible playbook and build the AVD generated configurations and store them in a local directory `intended/configs`.  
 
 ``` bash
-ansible-playbook playbooks/build.yml
+make build
 ```
 
 ## Deploy Configs to your Lab Fabric
 
+The command below will also build your configuration files and then deploy them on fabric nodes.
+
 ``` bash
-ansible-playbook playbooks/deploy.yml
+make deploy
 ```
+
+## Test Traffic from Host1 to Host2
