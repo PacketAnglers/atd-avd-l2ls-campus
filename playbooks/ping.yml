@@ -1,0 +1,13 @@
+
+---
+- name: Test Connectivity to Lab Nodes
+  hosts: ATD_FABRIC
+  connection: local
+  gather_facts: false
+  collections:
+    - arista.avd
+
+  tasks:
+
+  - name: Ping Hosts
+    ping:
