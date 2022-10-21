@@ -320,12 +320,20 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
+| 112 | Host_Network_112 | - |
+| 134 | Host_Network_134 | - |
 | 4093 | LEAF_PEER_L3 | LEAF_PEER_L3 |
 | 4094 | MLAG_PEER | MLAG |
 
 ## VLANs Device Configuration
 
 ```eos
+!
+vlan 112
+   name Host_Network_112
+!
+vlan 134
+   name Host_Network_134
 !
 vlan 4093
    name LEAF_PEER_L3
@@ -347,10 +355,10 @@ vlan 4094
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet1 | MLAG_PEER_s1-spine2_Ethernet1 | *trunk | *2-4094 | *- | *['LEAF_PEER_L3', 'MLAG'] | 1 |
-| Ethernet2 | S1-LEAF1_Ethernet2 | *trunk | *none | *- | *- | 2 |
-| Ethernet3 | S1-LEAF2_Ethernet2 | *trunk | *none | *- | *- | 2 |
-| Ethernet4 | S1-LEAF3_Ethernet2 | *trunk | *none | *- | *- | 4 |
-| Ethernet5 | S1-LEAF4_Ethernet2 | *trunk | *none | *- | *- | 4 |
+| Ethernet2 | S1-LEAF1_Ethernet2 | *trunk | *112,134 | *- | *- | 2 |
+| Ethernet3 | S1-LEAF2_Ethernet2 | *trunk | *112,134 | *- | *- | 2 |
+| Ethernet4 | S1-LEAF3_Ethernet2 | *trunk | *112,134 | *- | *- | 4 |
+| Ethernet5 | S1-LEAF4_Ethernet2 | *trunk | *112,134 | *- | *- | 4 |
 | Ethernet6 | MLAG_PEER_s1-spine2_Ethernet6 | *trunk | *2-4094 | *- | *['LEAF_PEER_L3', 'MLAG'] | 1 |
 
 *Inherited from Port-Channel Interface
@@ -399,8 +407,8 @@ interface Ethernet6
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
 | Port-Channel1 | MLAG_PEER_s1-spine2_Po1 | switched | trunk | 2-4094 | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
-| Port-Channel2 | IDF1_Po2 | switched | trunk | none | - | - | - | - | 2 | - |
-| Port-Channel4 | IDF2_Po2 | switched | trunk | none | - | - | - | - | 4 | - |
+| Port-Channel2 | IDF1_Po2 | switched | trunk | 112,134 | - | - | - | - | 2 | - |
+| Port-Channel4 | IDF2_Po2 | switched | trunk | 112,134 | - | - | - | - | 4 | - |
 
 ### Port-Channel Interfaces Device Configuration
 
@@ -419,7 +427,7 @@ interface Port-Channel2
    description IDF1_Po2
    no shutdown
    switchport
-   switchport trunk allowed vlan none
+   switchport trunk allowed vlan 112,134
    switchport mode trunk
    mlag 2
 !
@@ -427,7 +435,7 @@ interface Port-Channel4
    description IDF2_Po2
    no shutdown
    switchport
-   switchport trunk allowed vlan none
+   switchport trunk allowed vlan 112,134
    switchport mode trunk
    mlag 4
 ```
@@ -464,6 +472,8 @@ interface Loopback0
 
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
+| Vlan112 | Host_Network_112 | default | - | False |
+| Vlan134 | Host_Network_134 | default | - | False |
 | Vlan4093 | MLAG_PEER_L3_PEERING | default | 9000 | False |
 | Vlan4094 | MLAG_PEER | default | 9000 | False |
 
@@ -471,12 +481,26 @@ interface Loopback0
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
+| Vlan112 |  default  |  10.111.112.2/24  |  -  |  10.111.112.1  |  -  |  -  |  -  |
+| Vlan134 |  default  |  10.111.134.2/24  |  -  |  10.111.134.1  |  -  |  -  |  -  |
 | Vlan4093 |  default  |  10.1.1.0/31  |  -  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  10.0.0.0/31  |  -  |  -  |  -  |  -  |  -  |
 
 ### VLAN Interfaces Device Configuration
 
 ```eos
+!
+interface Vlan112
+   description Host_Network_112
+   no shutdown
+   ip address 10.111.112.2/24
+   ip virtual-router address 10.111.112.1
+!
+interface Vlan134
+   description Host_Network_134
+   no shutdown
+   ip address 10.111.134.2/24
+   ip virtual-router address 10.111.134.1
 !
 interface Vlan4093
    description MLAG_PEER_L3_PEERING
@@ -506,13 +530,13 @@ service routing protocols model multi-agent
 
 ### Virtual Router MAC Address Summary
 
-#### Virtual Router MAC Address: 00:1c:73:00:dc:01
+#### Virtual Router MAC Address: aa:aa:bb:bb:cc:cc
 
 ### Virtual Router MAC Address Configuration
 
 ```eos
 !
-ip virtual-router mac-address 00:1c:73:00:dc:01
+ip virtual-router mac-address aa:aa:bb:bb:cc:cc
 ```
 
 ## IP Routing

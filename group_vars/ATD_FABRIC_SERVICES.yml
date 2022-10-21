@@ -1,1 +1,39 @@
 ---
+
+# interface Vlan112
+#    ip address 10.111.112.2/24
+#    ip virtual-router address 10.111.112.1
+# !
+# interface Vlan134
+#    ip address 10.111.134.2/24
+#    ip virtual-router address 10.111.134.1
+# !
+# ip virtual-router mac-address 00:1C:73:00:00:12
+
+tenants:
+  MY_FABRIC:
+    vrfs:
+      default:
+        svis:
+          112:
+            name: 'Host_Network_112'
+            tags: [112]
+            enabled: true
+            ip_virtual_router_addresses:
+              - 10.111.112.1
+            nodes:
+              s1-spine1:
+                ip_address: 10.111.112.2/24
+              s1-spine2:
+                ip_address: 10.111.112.3/24
+          134:
+            name: 'Host_Network_134'
+            tags: [134]
+            enabled: true
+            ip_virtual_router_addresses:
+              - 10.111.134.1
+            nodes:
+              s1-spine1:
+                ip_address: 10.111.134.2/24
+              s1-spine2:
+                ip_address: 10.111.134.3/24

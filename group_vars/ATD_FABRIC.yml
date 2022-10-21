@@ -14,7 +14,7 @@ l3spine:
     loopback_ipv4_pool: 1.1.1.0/24
     mlag_peer_ipv4_pool: 10.0.0.0/24
     mlag_peer_l3_ipv4_pool: 10.1.1.0/24
-    virtual_router_mac_address: 00:1c:73:00:dc:01
+    virtual_router_mac_address: aa:aa:bb:bb:cc:cc
     mlag_interfaces: [Ethernet1, Ethernet6]
   node_groups:
     SPINES:

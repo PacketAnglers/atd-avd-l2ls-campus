@@ -318,11 +318,19 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
+| 112 | Host_Network_112 | - |
+| 134 | Host_Network_134 | - |
 | 4094 | MLAG_PEER | MLAG |
 
 ## VLANs Device Configuration
 
 ```eos
+!
+vlan 112
+   name Host_Network_112
+!
+vlan 134
+   name Host_Network_134
 !
 vlan 4094
    name MLAG_PEER
@@ -340,8 +348,8 @@ vlan 4094
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet1 | MLAG_PEER_s1-leaf3_Ethernet1 | *trunk | *2-4094 | *- | *['MLAG'] | 1 |
-| Ethernet2 | S1-SPINE1_Ethernet5 | *trunk | *none | *- | *- | 2 |
-| Ethernet3 | S1-SPINE2_Ethernet5 | *trunk | *none | *- | *- | 2 |
+| Ethernet2 | S1-SPINE1_Ethernet5 | *trunk | *112,134 | *- | *- | 2 |
+| Ethernet3 | S1-SPINE2_Ethernet5 | *trunk | *112,134 | *- | *- | 2 |
 | Ethernet6 | MLAG_PEER_s1-leaf3_Ethernet6 | *trunk | *2-4094 | *- | *['MLAG'] | 1 |
 
 *Inherited from Port-Channel Interface
@@ -380,7 +388,7 @@ interface Ethernet6
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
 | Port-Channel1 | MLAG_PEER_s1-leaf3_Po1 | switched | trunk | 2-4094 | - | ['MLAG'] | - | - | - | - |
-| Port-Channel2 | SPINES_Po4 | switched | trunk | none | - | - | - | - | 2 | - |
+| Port-Channel2 | SPINES_Po4 | switched | trunk | 112,134 | - | - | - | - | 2 | - |
 
 ### Port-Channel Interfaces Device Configuration
 
@@ -398,7 +406,7 @@ interface Port-Channel2
    description SPINES_Po4
    no shutdown
    switchport
-   switchport trunk allowed vlan none
+   switchport trunk allowed vlan 112,134
    switchport mode trunk
    mlag 2
 ```
