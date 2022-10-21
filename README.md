@@ -1,6 +1,6 @@
 # Cleveland ATD - 11/02/2022
 
-The following repo builds an L2LS Campus fabric.
+The following repo builds an L2LS Campus fabric and deploys the configurations on Data Center (S1) on the Dual DC ATD Lab.
 
 ![Topo](images/ATD-Campus-Topo.png)
 
