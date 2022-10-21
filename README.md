@@ -4,7 +4,7 @@ The following repo builds an L2LS Campus fabric and deploys the configurations o
 
 ![Topo](images/ATD-Campus-Topo.png)
 
-## AVD Installation
+## STEP #1 - Install AVD and Modules
 
 Open Terminal in VScode and run the following installation script.  This will prep your host with AVD and install module requirements.
 
@@ -12,7 +12,7 @@ Open Terminal in VScode and run the following installation script.  This will pr
 bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 ```
 
-## Update Password
+## STEP #2 - Update Password
 
 In the group_vars/ATD.yml file, update the `ansible_password:` with your lab's unique password on line 5.
 
@@ -25,7 +25,7 @@ ansible_password: XXXXXXXXXXX # Update password with your lab's password
 ansible_network_os: arista.eos.eos
 ```
 
-## Build Configs
+## STEP #3 - Build Configs
 
 The command below will run an ansible playbook and build the AVD generated configurations and store them in a local directory `intended/configs`.  
 
@@ -33,7 +33,7 @@ The command below will run an ansible playbook and build the AVD generated confi
 make build
 ```
 
-## Deploy Configs to your Lab Fabric
+## STEP #4 - Deploy Configs to your Lab Fabric
 
 The command below will also build your configuration files and then deploy them on fabric nodes.
 
@@ -41,4 +41,4 @@ The command below will also build your configuration files and then deploy them 
 make deploy
 ```
 
-## Test Traffic from Host1 to Host2
+## STEP #5 - Test Traffic from Host1 to Host2
