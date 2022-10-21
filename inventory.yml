@@ -1,57 +1,34 @@
 ---
-all:
+ATD:
   children:
-    cv_servers:
+    CVP:
       hosts:
-        cv_atd1:
+        cvp:
           ansible_host: 192.168.0.5
           cv_collection: v3
-    ATD_LAB:
+    ATD_FABRIC:
       children:
-        ATD_FABRIC:
+        ATD_SPINES:
+          hosts:
+            s1-spine1:
+              ansible_host: 192.168.0.10
+            s1-spine2:
+              ansible_host: 192.168.0.11
+        ATD_LEAFS:
+          hosts:
+            s1-leaf1:
+              ansible_host: 192.168.0.12
+            s1-leaf2:
+              ansible_host: 192.168.0.13
+            s1-leaf3:
+              ansible_host: 192.168.0.14
+            s1-leaf4:
+              ansible_host: 192.168.0.15
+        ATD_FABRIC_SERVICES:
           children:
             ATD_SPINES:
-              vars:
-                type: l3spine
-              hosts:
-                s1-spine1:
-                  ansible_host: 192.168.0.10
-                s1-spine2:
-                  ansible_host: 192.168.0.11
             ATD_LEAFS:
-              vars:
-                type: leaf
-              children:
-                pod1:
-                  hosts:
-                    s1-leaf1:
-                      ansible_host: 192.168.0.12
-                    s1-leaf2:
-                      ansible_host: 192.168.0.13
-                pod2:
-                  hosts:
-                    s1-leaf3:
-                      ansible_host: 192.168.0.14
-                    s1-leaf4:
-                      ansible_host: 192.168.0.15
-            ATD_TENANTS_NETWORKS:
-              children:
-                ATD_LEAFS:
-            ATD_SERVERS:
-              children:
-                ATD_LEAFS:
-
-  vars:
-    ansible_user: arista
-    # Update password with lab credentials
-    ansible_password: aristay83b
-    ansible_network_os: arista.eos.eos
-    # Configure privilege escalation
-    ansible_become: true
-    ansible_become_method: enable
-    # HTTPAPI configuration
-    ansible_connection: httpapi
-    ansible_httpapi_port: 443
-    ansible_httpapi_use_ssl: true
-    ansible_httpapi_validate_certs: false
-    ansible_python_interpreter: $(which python3)
+        ATD_FABRIC_PORTS:
+          children:
+            ATD_SPINES:
+            ATD_LEAFS:
