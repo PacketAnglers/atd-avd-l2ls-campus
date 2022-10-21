@@ -137,16 +137,14 @@ management api http-commands
 
 | User | Privilege | Role |
 | ---- | --------- | ---- |
-| admin | 15 | network-admin |
 | arista | 15 | network-admin |
 
 ### Local Users Device Configuration
 
 ```eos
 !
-username admin privilege 15 role network-admin secret sha512 $1$5O85YVVn$HrXcfOivJEnISTMb6xrJc.
-username arista privilege 15 role network-admin secret sha512 $1$4VjIjfd1$XkUVulbNDESHFzcxDU.Tk1
-username arista ssh-key AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh arista@cleveland-atd-avd-1-30e03f6d
+username arista privilege 15 role network-admin secret sha512 $6$QKglMNH1byQBb1RZ$CpICxVdZMgGypU88R9rBXYvobnp9NithP3ekBz.y6W6h6nIyBDKY.MKRJPiRLgEsYqoCI1g2SxorD9mQaGFKc/
+username arista ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh arista@cleveland-atd-avd-1-30e03f6d
 ```
 
 ## RADIUS Servers
@@ -259,7 +257,7 @@ daemon TerminAttr
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| SPINES | Vlan4094 | 192.168.0.1 | Port-Channel1 |
+| SPINES | Vlan4094 | 10.0.0.1 | Port-Channel1 |
 
 Dual primary detection is disabled.
 
@@ -270,7 +268,7 @@ Dual primary detection is disabled.
 mlag configuration
    domain-id SPINES
    local-interface Vlan4094
-   peer-address 192.168.0.1
+   peer-address 10.0.0.1
    peer-link Port-Channel1
    reload-delay mlag 300
    reload-delay non-mlag 330
@@ -474,7 +472,7 @@ interface Loopback0
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
 | Vlan4093 |  default  |  10.1.1.0/31  |  -  |  -  |  -  |  -  |  -  |
-| Vlan4094 |  default  |  192.168.0.0/31  |  -  |  -  |  -  |  -  |  -  |
+| Vlan4094 |  default  |  10.0.0.0/31  |  -  |  -  |  -  |  -  |  -  |
 
 ### VLAN Interfaces Device Configuration
 
@@ -491,7 +489,7 @@ interface Vlan4094
    no shutdown
    mtu 9000
    no autostate
-   ip address 192.168.0.0/31
+   ip address 10.0.0.0/31
 ```
 
 # Routing

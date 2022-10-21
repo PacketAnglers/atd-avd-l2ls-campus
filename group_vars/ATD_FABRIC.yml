@@ -12,7 +12,7 @@ l3spine:
     spanning_tree_mode: mstp
     spanning_tree_priority: 4096
     loopback_ipv4_pool: 1.1.1.0/24
-    mlag_peer_ipv4_pool: 192.168.0.0/24
+    mlag_peer_ipv4_pool: 10.0.0.0/24
     mlag_peer_l3_ipv4_pool: 10.1.1.0/24
     virtual_router_mac_address: 00:1c:73:00:dc:01
     mlag_interfaces: [Ethernet1, Ethernet6]
@@ -30,14 +30,14 @@ l3spine:
 leaf:
   defaults:
     platform: vEOS
-    mlag_peer_ipv4_pool: 192.168.0.0/24
+    mlag_peer_ipv4_pool: 10.0.0.0/24
     spanning_tree_mode: mstp
     spanning_tree_priority: 16384
     # inband_management_subnet: 10.0.0.0/24
     # inband_management_vlan: 10
     uplink_switches: [s1-spine1, s1-spine2]
     uplink_interfaces: [Ethernet2, Ethernet3]
-    mlag_interfaces: [Ethernet53, Ethernet54]
+    mlag_interfaces: [Ethernet1, Ethernet6]
   node_groups:
     IDF1:
       mlag: true

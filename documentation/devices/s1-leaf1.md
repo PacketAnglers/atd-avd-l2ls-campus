@@ -135,16 +135,14 @@ management api http-commands
 
 | User | Privilege | Role |
 | ---- | --------- | ---- |
-| admin | 15 | network-admin |
 | arista | 15 | network-admin |
 
 ### Local Users Device Configuration
 
 ```eos
 !
-username admin privilege 15 role network-admin secret sha512 $1$5O85YVVn$HrXcfOivJEnISTMb6xrJc.
-username arista privilege 15 role network-admin secret sha512 $1$4VjIjfd1$XkUVulbNDESHFzcxDU.Tk1
-username arista ssh-key AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh arista@cleveland-atd-avd-1-30e03f6d
+username arista privilege 15 role network-admin secret sha512 $6$QKglMNH1byQBb1RZ$CpICxVdZMgGypU88R9rBXYvobnp9NithP3ekBz.y6W6h6nIyBDKY.MKRJPiRLgEsYqoCI1g2SxorD9mQaGFKc/
+username arista ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh arista@cleveland-atd-avd-1-30e03f6d
 ```
 
 ## RADIUS Servers
@@ -257,7 +255,7 @@ daemon TerminAttr
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| IDF1 | Vlan4094 | 192.168.0.5 | Port-Channel53 |
+| IDF1 | Vlan4094 | 10.0.0.5 | Port-Channel1 |
 
 Dual primary detection is disabled.
 
@@ -268,8 +266,8 @@ Dual primary detection is disabled.
 mlag configuration
    domain-id IDF1
    local-interface Vlan4094
-   peer-address 192.168.0.5
-   peer-link Port-Channel53
+   peer-address 10.0.0.5
+   peer-link Port-Channel1
    reload-delay mlag 300
    reload-delay non-mlag 330
 ```
@@ -341,16 +339,21 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+| Ethernet1 | MLAG_PEER_s1-leaf2_Ethernet1 | *trunk | *2-4094 | *- | *['MLAG'] | 1 |
 | Ethernet2 | S1-SPINE1_Ethernet2 | *trunk | *none | *- | *- | 2 |
 | Ethernet3 | S1-SPINE2_Ethernet2 | *trunk | *none | *- | *- | 2 |
-| Ethernet53 | MLAG_PEER_s1-leaf2_Ethernet53 | *trunk | *2-4094 | *- | *['MLAG'] | 53 |
-| Ethernet54 | MLAG_PEER_s1-leaf2_Ethernet54 | *trunk | *2-4094 | *- | *['MLAG'] | 53 |
+| Ethernet6 | MLAG_PEER_s1-leaf2_Ethernet6 | *trunk | *2-4094 | *- | *['MLAG'] | 1 |
 
 *Inherited from Port-Channel Interface
 
 ### Ethernet Interfaces Device Configuration
 
 ```eos
+!
+interface Ethernet1
+   description MLAG_PEER_s1-leaf2_Ethernet1
+   no shutdown
+   channel-group 1 mode active
 !
 interface Ethernet2
    description S1-SPINE1_Ethernet2
@@ -362,15 +365,10 @@ interface Ethernet3
    no shutdown
    channel-group 2 mode active
 !
-interface Ethernet53
-   description MLAG_PEER_s1-leaf2_Ethernet53
+interface Ethernet6
+   description MLAG_PEER_s1-leaf2_Ethernet6
    no shutdown
-   channel-group 53 mode active
-!
-interface Ethernet54
-   description MLAG_PEER_s1-leaf2_Ethernet54
-   no shutdown
-   channel-group 53 mode active
+   channel-group 1 mode active
 ```
 
 ## Port-Channel Interfaces
@@ -381,12 +379,20 @@ interface Ethernet54
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
+| Port-Channel1 | MLAG_PEER_s1-leaf2_Po1 | switched | trunk | 2-4094 | - | ['MLAG'] | - | - | - | - |
 | Port-Channel2 | SPINES_Po2 | switched | trunk | none | - | - | - | - | 2 | - |
-| Port-Channel53 | MLAG_PEER_s1-leaf2_Po53 | switched | trunk | 2-4094 | - | ['MLAG'] | - | - | - | - |
 
 ### Port-Channel Interfaces Device Configuration
 
 ```eos
+!
+interface Port-Channel1
+   description MLAG_PEER_s1-leaf2_Po1
+   no shutdown
+   switchport
+   switchport trunk allowed vlan 2-4094
+   switchport mode trunk
+   switchport trunk group MLAG
 !
 interface Port-Channel2
    description SPINES_Po2
@@ -395,14 +401,6 @@ interface Port-Channel2
    switchport trunk allowed vlan none
    switchport mode trunk
    mlag 2
-!
-interface Port-Channel53
-   description MLAG_PEER_s1-leaf2_Po53
-   no shutdown
-   switchport
-   switchport trunk allowed vlan 2-4094
-   switchport mode trunk
-   switchport trunk group MLAG
 ```
 
 ## VLAN Interfaces
@@ -417,7 +415,7 @@ interface Port-Channel53
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
-| Vlan4094 |  default  |  192.168.0.4/31  |  -  |  -  |  -  |  -  |  -  |
+| Vlan4094 |  default  |  10.0.0.4/31  |  -  |  -  |  -  |  -  |  -  |
 
 ### VLAN Interfaces Device Configuration
 
@@ -428,7 +426,7 @@ interface Vlan4094
    no shutdown
    mtu 9000
    no autostate
-   ip address 192.168.0.4/31
+   ip address 10.0.0.4/31
 ```
 
 # Routing

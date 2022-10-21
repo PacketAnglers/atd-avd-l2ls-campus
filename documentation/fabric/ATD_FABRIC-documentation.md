@@ -34,16 +34,16 @@
 
 | Type | Node | Node Interface | Peer Type | Peer Node | Peer Interface |
 | ---- | ---- | -------------- | --------- | ----------| -------------- |
+| leaf | s1-leaf1 | Ethernet1 | mlag_peer | s1-leaf2 | Ethernet1 |
 | leaf | s1-leaf1 | Ethernet2 | l3spine | s1-spine1 | Ethernet2 |
 | leaf | s1-leaf1 | Ethernet3 | l3spine | s1-spine2 | Ethernet2 |
-| leaf | s1-leaf1 | Ethernet53 | mlag_peer | s1-leaf2 | Ethernet53 |
-| leaf | s1-leaf1 | Ethernet54 | mlag_peer | s1-leaf2 | Ethernet54 |
+| leaf | s1-leaf1 | Ethernet6 | mlag_peer | s1-leaf2 | Ethernet6 |
 | leaf | s1-leaf2 | Ethernet2 | l3spine | s1-spine1 | Ethernet3 |
 | leaf | s1-leaf2 | Ethernet3 | l3spine | s1-spine2 | Ethernet3 |
+| leaf | s1-leaf3 | Ethernet1 | mlag_peer | s1-leaf4 | Ethernet1 |
 | leaf | s1-leaf3 | Ethernet2 | l3spine | s1-spine1 | Ethernet4 |
 | leaf | s1-leaf3 | Ethernet3 | l3spine | s1-spine2 | Ethernet4 |
-| leaf | s1-leaf3 | Ethernet53 | mlag_peer | s1-leaf4 | Ethernet53 |
-| leaf | s1-leaf3 | Ethernet54 | mlag_peer | s1-leaf4 | Ethernet54 |
+| leaf | s1-leaf3 | Ethernet6 | mlag_peer | s1-leaf4 | Ethernet6 |
 | leaf | s1-leaf4 | Ethernet2 | l3spine | s1-spine1 | Ethernet5 |
 | leaf | s1-leaf4 | Ethernet3 | l3spine | s1-spine2 | Ethernet5 |
 | l3spine | s1-spine1 | Ethernet1 | mlag_peer | s1-spine2 | Ethernet1 |
