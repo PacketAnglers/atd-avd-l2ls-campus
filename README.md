@@ -1,10 +1,13 @@
-# cleveland-atd-avd
-Repo for Cleveland ATD 11-02-2022
+# Cleveland ATD - 11/02/2022
+
+The following repo builds an L2LS Campus fabric.
 
 ![Topo](images/ATD-Campus-Topo.png)
 
 ## AVD Installation
+
 Open Terminal in VScode and run the following installation script.  This will prep your host with AVD and install module requirements.
+
 ``` bash
 bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 ```
