@@ -170,7 +170,7 @@ On Mac:
 
 On Windows:
 
-- Hightlight lines 25-57 under network_ports and press (Ctrl + K + U).
+- Hightlight lines 25-57 under network_ports and press (Ctrl + /).
 
 For this Lab, we can simulate building these configurations, but will not be able to deploy them because the virtual switches do not include these interfaces.
 
