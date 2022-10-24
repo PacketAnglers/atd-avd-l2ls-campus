@@ -22,7 +22,7 @@ In the **group_vars/ATD.yml** file, update the following **three** variables:
 
 The `ansible_password` variable is used by Ansible to log into your switches to deploy configurations.  The password is unique to your Lab instance and can be found from the **Usernames and Passwords** section of your lab topology screen.
 
-<img src="images/username_passwords.png" alt="username_passwords" width="400"/>
+<img src="images/username_passwords.png" alt="username_passwords" width="500"/>
 
 ``` yaml
 ---
