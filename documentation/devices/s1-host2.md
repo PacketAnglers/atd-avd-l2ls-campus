@@ -286,15 +286,11 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
-| 10 | Ten | - |
 | 20 | Twenty | - |
 
 ## VLANs Device Configuration
 
 ```eos
-!
-vlan 10
-   name Ten
 !
 vlan 20
    name Twenty
@@ -310,8 +306,8 @@ vlan 20
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | S1-LEAF3_Ethernet4 | *trunk | *10,20 | *- | *- | 1 |
-| Ethernet2 | S1-LEAF4_Ethernet4 | *trunk | *10,20 | *- | *- | 1 |
+| Ethernet1 | S1-LEAF3_Ethernet4 | *trunk | *20 | *- | *- | 1 |
+| Ethernet2 | S1-LEAF4_Ethernet4 | *trunk | *20 | *- | *- | 1 |
 
 *Inherited from Port-Channel Interface
 
@@ -338,7 +334,7 @@ interface Ethernet2
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | IDF2_Po4 | switched | trunk | 10,20 | - | - | - | - | - | - |
+| Port-Channel1 | IDF2_Po4 | switched | trunk | 20 | - | - | - | - | - | - |
 
 ### Port-Channel Interfaces Device Configuration
 
@@ -348,7 +344,7 @@ interface Port-Channel1
    description IDF2_Po4
    no shutdown
    switchport
-   switchport trunk allowed vlan 10,20
+   switchport trunk allowed vlan 20
    switchport mode trunk
 ```
 

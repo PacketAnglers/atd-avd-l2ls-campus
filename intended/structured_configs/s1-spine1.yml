@@ -98,14 +98,14 @@ port_channel_interfaces:
     description: IDF1_Po2
     type: switched
     shutdown: false
-    vlans: 10,20
+    vlans: 10
     mode: trunk
     mlag: 2
   Port-Channel4:
     description: IDF2_Po2
     type: switched
     shutdown: false
-    vlans: 10,20
+    vlans: 20
     mode: trunk
     mlag: 4
 ethernet_interfaces:

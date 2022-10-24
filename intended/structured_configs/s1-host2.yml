@@ -62,12 +62,9 @@ port_channel_interfaces:
     description: IDF2_Po4
     type: switched
     shutdown: false
-    vlans: 10,20
+    vlans: 20
     mode: trunk
 vlans:
-  10:
-    tenant: MY_FABRIC
-    name: Ten
   20:
     tenant: MY_FABRIC
     name: Twenty

@@ -33,16 +33,14 @@ leaf:
     mlag_peer_ipv4_pool: 10.0.0.0/24
     spanning_tree_mode: mstp
     spanning_tree_priority: 16384
-    # inband_management_subnet: 10.0.0.0/24
-    # inband_management_vlan: 10
     uplink_switches: [s1-spine1, s1-spine2]
     uplink_interfaces: [Ethernet2, Ethernet3]
     mlag_interfaces: [Ethernet1, Ethernet6]
   node_groups:
     IDF1:
       mlag: true
-      # filter:
-      #   tags: [ 110, 120, 130 ]
+      filter:
+        tags: [ 10 ]
       nodes:
         s1-leaf1:
           id: 3
@@ -56,8 +54,8 @@ leaf:
           uplink_switch_interfaces: [Ethernet3, Ethernet3]
     IDF2:
       mlag: true
-      # filter:
-      #   tags: [ 210, 220, 230 ]
+      filter:
+        tags: [ 20 ]
       nodes:
         s1-leaf3:
           id: 5
@@ -74,8 +72,8 @@ leaf:
 
     HOST1:
       mlag: false
-      # filter:
-      #   tags: [ 210, 220, 230 ]
+    # inband_management_subnet: 10.0.0.0/24
+    # inband_management_vlan: 10
       nodes:
         s1-host1:
           id: 7
@@ -86,8 +84,6 @@ leaf:
 
     HOST2:
       mlag: false
-      # filter:
-      #   tags: [ 210, 220, 230 ]
       nodes:
         s1-host2:
           id: 8
