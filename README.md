@@ -26,7 +26,7 @@ cd labfiles/cleveland-atd-avd
 
 From the Programmibility IDE Explorer, navigate to the `labfiles/cleveland-atd-avd`
 
-**ADD GRAPHIC HERE**
+<img src="images/folder.png" alt="folder" width="200"/>
 
 Click on the **group_vars/ATD.yml** file to open an editor tab and update the following **three** variables:
 
