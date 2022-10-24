@@ -6,7 +6,11 @@ The following repo builds an L2LS Campus fabric and deploys the configurations o
 
 ## STEP #1 - Install AVD and Modules
 
-Launch the Progammability IDE (lefthand column of Lab Topology) and start a new terminal session and run the following installation script.  This will prep your host with AVD and install module requirements.
+Launch the Progammability IDE (lefthand column of Lab Topology) and start a new terminal session.  This will prep your host with AVD and install module requirements.
+
+![Topo](images/programmability_ide.png)
+
+From the terminal session, run the following installation script.
 
 ``` bash
 bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
