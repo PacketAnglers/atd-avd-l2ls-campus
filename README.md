@@ -117,5 +117,49 @@ PING 10.20.20.101 (10.20.20.101) 72(100) bytes of data.
 80 bytes from 10.20.20.101: icmp_seq=5 ttl=63 time=23.0 ms
 ```
 
-## Add Section for range of network_ports and 802.1x port_profiles
+# Network Ports and 802.1x Port Profiles
+
+So far, the above example has shown how to build and deploy configurations using AVD. In a Campus environment, we typically configure a range of ports within a leaf switch to have the same charactestics (vlan, mode, portfast, NAC, etc...).  AVD provides a way to define a **Port Profile** and then apply to a range of ports across multiple switches.  For example, suppose we wish to configure port range Ethernet7-48 on leafs s1-leaf1 and s1-leaf2 with the following configuration.
+
+``` bash
+interface EthernetX
+   switchport trunk native vlan 10
+   switchport phone vlan 15
+   switchport phone trunk untagged
+   switchport mode trunk phone
+   switchport
+   dot1x pae authenticator
+   dot1x authentication failure action traffic allow vlan 999
+   dot1x reauthentication
+   dot1x port-control auto
+   dot1x host-mode multi-host authenticated
+   dot1x mac based authentication
+   dot1x timeout tx-period 3
+   dot1x timeout reauth-period server
+   dot1x reauthorization request limit 3
+   spanning-tree portfast
+   spanning-tree bpduguard enable
+```
+
+Open up file **group_vars/ATD_FABRIC_PORTS.yml**  and uncomment lines 25-57.  
+
+On Mac:
+
+- Hightlight lines 25-57 under network_ports and press (CMD + /).
+
+On Windows:
+
+- Hightlight lines 25-57 under network_ports and press (Ctrl + K + U).
+
+For this Lab, we can simulate building these configurations, but will not be able to deploy them because the virtual switches do not include these interfaces.
+
+Now that network_ports has been defined to use a port_profile called `PP-DOT1X` you can build the configurations again and preview them in **intended/configs**.
+
+``` bash
+make build
+```
+
+## Next steps
+
+Try modifying the network_ports keys to include other ports and switches...
 

@@ -20,14 +20,14 @@ port_profiles:
         tx_period: 3
       reauthorization_request_limit: 3
 
-# network_ports:
+network_ports:
 
 # # ---------------- s1-leaf1/2 ----------------
 
 #   - switches:
 #       - s1-leaf[12] # regex match s1-leaf1 & s1-leaF2
 #     switch_ports:
-#       - Ethernet5-48
+#       - Ethernet7-48
 #     profile: PP-DOT1X
 #     native_vlan: 10
 #     structured_config:
@@ -44,7 +44,7 @@ port_profiles:
 #   - switches:
 #       - s1-leaf[34] # regex match s1-leaf1 & s1-leaF2
 #     switch_ports:
-#       - Ethernet5-48
+#       - Ethernet7-48
 #     profile: PP-DOT1X
 #     native_vlan: 20
 #     structured_config:
