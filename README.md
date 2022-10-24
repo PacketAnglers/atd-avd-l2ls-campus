@@ -14,11 +14,14 @@ bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 
 ## STEP #2 - Update Passwords and SSH Keys
 
-In the **group_vars/ATD.yml** file, update the following variables:
-
-Ansible Credentails to log into your switches
+In the **group_vars/ATD.yml** file, update the following **three** variables:
 
 - line 5 - `ansible_password:` with your Lab's unique password
+- line 49 - `sha512_password:` from a switch
+- line 50 - `ssh_key:` from a switch
+
+
+The `ansible_password` variable is used by Ansible to log into your switches to deploy configurations.  The password is unique to your Lab instance and can be found from the **Usernames and Passwords** section of your lab topology screen.
 
 ``` yaml
 ---
