@@ -76,7 +76,7 @@ make build
 
 ## STEP #4 - Deploy Configs to your Lab Fabric
 
-The command below will also build your configuration files and then deploy them on fabric nodes.
+The command below will build your configuration files and deploy them to your switches.  This playbook uses Arista's eAPI & eos_config module to do a config replacement of the switches running_config.
 
 ``` bash
 make deploy
