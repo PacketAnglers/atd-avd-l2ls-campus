@@ -43,13 +43,14 @@ username arista privilege 15 role network-admin secret XXXXXXXX # your unique La
 Now we can display the sha512 password and ssh key by typing the following command.
 
 ``` bash
-sh run section username
+show run section username
+
 username admin privilege 15 role network-admin secret 5 $1$5O85YVVn$HrXcfOivJEnISTMb6xrJc.
 username arista privilege 15 role network-admin secret sha512 $6$ebPETJmTzMXalZW0$7zyBIqsR/yjRh2LVL45dFLS5YSEGLfmrnnZtBNcaXW1YncuNWI6UMhk2wOmalqhSL/lFNhMpKhXnY.ztYXtQ31
 username arista ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh arista@cleveland-atd-avd-1-30e03f6d
 ```
 
-Now update sha512 password and ssh_key with these values.  _Remember to keep the double quotes and DO NOT REMOVE `ssh-rsa` from the ssh_key variable._
+Now update sha512_password and ssh_key with these values.  _Remember to keep the double quotes and DO NOT REMOVE `ssh-rsa` from the ssh_key variable._
 
 - line 49 - `sha512_password:`
 - line 50 - `ssh_key:`
@@ -82,3 +83,16 @@ make deploy
 ```
 
 ## STEP #5 - Test Traffic from Host1 to Host2
+
+Connect to `s1-host` and ping `s1-host2`
+
+``` bash
+ping 10.20.20.101
+
+PING 10.20.20.101 (10.20.20.101) 72(100) bytes of data.
+80 bytes from 10.20.20.101: icmp_seq=1 ttl=63 time=34.0 ms
+80 bytes from 10.20.20.101: icmp_seq=2 ttl=63 time=30.2 ms
+80 bytes from 10.20.20.101: icmp_seq=3 ttl=63 time=25.2 ms
+80 bytes from 10.20.20.101: icmp_seq=4 ttl=63 time=21.1 ms
+80 bytes from 10.20.20.101: icmp_seq=5 ttl=63 time=23.0 ms
+```
