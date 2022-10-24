@@ -4,6 +4,10 @@ This repository builds an L2LS Campus fabric onto the Dual Data Center ATD Lab. 
 
 ![Topo](images/ATD-Campus-Topo.svg)
 
+## Requirements
+
+- Need a running Dual Data Center ATD Lab.
+
 ## STEP #1 - Install AVD and Modules
 
 Launch the Progammability IDE (lefthand column of Lab Topology) and start a new terminal session.
