@@ -14,7 +14,7 @@ bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 
 ## STEP #2 - Update Passwords and SSH Keys
 
-In the group_vars/ATD.yml file, update the following variables:
+In the **group_vars/ATD.yml** file, update the following variables:
 
 Ansible Credentails to log into your switches
 
@@ -23,7 +23,7 @@ Ansible Credentails to log into your switches
 Local User sha512 password and ssh key to configure on the switch
 
 - line 49 - `sha512_password:`
-- line 49 - `ssh_key:`
+- line 50 - `ssh_key:`
 
 ``` yaml
 ---
