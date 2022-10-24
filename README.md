@@ -1,6 +1,6 @@
 # Cleveland ATD - 11/02/2022
 
-The following repo builds an L2LS Campus fabric and deploys the configurations on Data Center (S1) on the Dual DC ATD Lab.
+This repository builds an L2LS Campus fabric onto the Dual Data Center ATD Lab. The below diagram respresents a single DC within the larger Lab topology. Using AVD, we will build and deploy configurations for an example Campus Fabric.
 
 ![Topo](images/ATD-Campus-Topo.svg)
 
@@ -24,9 +24,11 @@ cd labfiles/cleveland-atd-avd
 
 ## STEP #2 - Update Passwords and SSH Keys
 
+From the Programmibility IDE Explorer, navigate to the `labfiles/cleveland-atd-avd`
+
 **ADD GRAPHIC HERE**
 
-In the **group_vars/ATD.yml** file, update the following **three** variables:
+Click on the **group_vars/ATD.yml** file to open an editor tab and update the following **three** variables:
 
 - line 5 - `ansible_password:` with your Lab's unique password
 - line 49 - `sha512_password:` from a switch
