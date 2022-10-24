@@ -2,7 +2,7 @@
 
 The following repo builds an L2LS Campus fabric and deploys the configurations on Data Center (S1) on the Dual DC ATD Lab.
 
-![Topo](images/ATD-Campus-Topo.png)
+![Topo](images/ATD-Campus-Topo.svg)
 
 ## STEP #1 - Install AVD and Modules
 
@@ -17,7 +17,7 @@ bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 In the group_vars/ATD.yml file, update the `ansible_password:` with your lab's unique password on line 5.
 
 ``` yaml
----  
+---
 
 # Credentials for CVP and EOS Switches
 ansible_user: arista
@@ -27,7 +27,7 @@ ansible_network_os: arista.eos.eos
 
 ## STEP #3 - Build Configs
 
-The command below will run an ansible playbook and build the AVD generated configurations and store them in a local directory `intended/configs`.  
+The command below will run an ansible playbook and build the AVD generated configurations and store them in a local directory `intended/configs`.
 
 ``` bash
 make build
