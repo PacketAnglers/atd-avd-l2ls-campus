@@ -27,6 +27,7 @@
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
   - [Port-Channel Interfaces](#port-channel-interfaces)
+  - [VLAN Interfaces](#vlan-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
@@ -348,6 +349,29 @@ interface Port-Channel1
    switchport mode trunk
 ```
 
+## VLAN Interfaces
+
+### VLAN Interfaces Summary
+
+| Interface | Description | VRF |  MTU | Shutdown |
+| --------- | ----------- | --- | ---- | -------- |
+| Vlan20 | In-band Management | default | - | - |
+
+#### IPv4
+
+| Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
+| --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
+| Vlan20 |  default  |  10.20.20.101/24  |  -  |  -  |  -  |  -  |  -  |
+
+### VLAN Interfaces Device Configuration
+
+```eos
+!
+interface Vlan20
+   description In-band Management
+   ip address 10.20.20.101/24
+```
+
 # Routing
 ## Service Routing Protocols Model
 
@@ -388,12 +412,14 @@ ip routing
 
 | VRF | Destination Prefix | Next Hop IP             | Exit interface      | Administrative Distance       | Tag               | Route Name                    | Metric         |
 | --- | ------------------ | ----------------------- | ------------------- | ----------------------------- | ----------------- | ----------------------------- | -------------- |
+| default | 10.0.0.0/8 | 10.20.20.1 | - | 1 | - | - | - |
 | default | 0.0.0.0/0 | 192.168.0.1 | - | 1 | - | - | - |
 
 ### Static Routes Device Configuration
 
 ```eos
 !
+ip route 10.0.0.0/8 10.20.20.1
 ip route 0.0.0.0/0 192.168.0.1
 ```
 
