@@ -146,22 +146,22 @@ Open up file **group_vars/ATD_FABRIC_PORTS.yml**  and uncomment lines 25-57. Sni
 ``` yaml
 network_ports:
 
-# # ---------------- s1-leaf1/2 ----------------
+# ---------------- s1-leaf1/2 ----------------
 
-#   - switches:
-#       - s1-leaf[12] # regex match s1-leaf1 & s1-leaF2
-#     switch_ports:
-#       - Ethernet7-48
-#     profile: PP-DOT1X
-#     native_vlan: 10
-#     structured_config:
-#       phone:
-#         trunk: untagged
-#         vlan: 15
-#     dot1x:
-#       authentication_failure:
-#         action: allow
-#         allow_vlan: 999
+  - switches:
+      - s1-leaf[12] # regex match s1-leaf1 & s1-leaF2
+    switch_ports:
+      - Ethernet7-48
+    profile: PP-DOT1X
+    native_vlan: 10
+    structured_config:
+      phone:
+        trunk: untagged
+        vlan: 15
+    dot1x:
+      authentication_failure:
+        action: allow
+        allow_vlan: 999
 ```
 
 On Mac:
