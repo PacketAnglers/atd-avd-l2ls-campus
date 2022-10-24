@@ -43,6 +43,12 @@ vlans:
     name: MLAG_PEER
     trunk_groups:
     - MLAG
+  10:
+    tenant: MY_FABRIC
+    name: Ten
+  20:
+    tenant: MY_FABRIC
+    name: Twenty
   112:
     tenant: MY_FABRIC
     name: Host_Network_112
@@ -69,7 +75,7 @@ port_channel_interfaces:
     description: SPINES_Po4
     type: switched
     shutdown: false
-    vlans: 112,134
+    vlans: 10,20,112,134
     mode: trunk
     mlag: 2
 ethernet_interfaces:
