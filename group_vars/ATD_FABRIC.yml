@@ -68,12 +68,9 @@ leaf:
           uplink_switches: [s1-spine1, s1-spine2]
           uplink_switch_interfaces: [Ethernet5, Ethernet5]
 
-
-
+# IDF - Host Switches
     HOST1:
       mlag: false
-    # inband_management_subnet: 10.0.0.0/24
-    # inband_management_vlan: 10
       nodes:
         s1-host1:
           id: 7
