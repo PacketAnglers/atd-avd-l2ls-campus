@@ -69,3 +69,29 @@ leaf:
           mgmt_ip: 192.168.0.15/24
           uplink_switches: [s1-spine1, s1-spine2]
           uplink_switch_interfaces: [Ethernet5, Ethernet5]
+
+
+
+    HOST1:
+      mlag: false
+      # filter:
+      #   tags: [ 210, 220, 230 ]
+      nodes:
+        s1-host1:
+          id: 7
+          mgmt_ip: 192.168.0.16/24
+          uplink_interfaces: [Ethernet1, Ethernet2]
+          uplink_switches: [s1-leaf1, s1-leaf2]
+          uplink_switch_interfaces: [Ethernet4, Ethernet4]
+
+    HOST2:
+      mlag: false
+      # filter:
+      #   tags: [ 210, 220, 230 ]
+      nodes:
+        s1-host2:
+          id: 8
+          mgmt_ip: 192.168.0.17/24
+          uplink_interfaces: [Ethernet1, Ethernet2]
+          uplink_switches: [s1-leaf3, s1-leaf4]
+          uplink_switch_interfaces: [Ethernet4, Ethernet4]

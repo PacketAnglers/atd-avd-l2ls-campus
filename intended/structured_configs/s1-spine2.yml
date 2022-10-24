@@ -54,12 +54,6 @@ vlans:
   20:
     tenant: MY_FABRIC
     name: Twenty
-  112:
-    tenant: MY_FABRIC
-    name: Host_Network_112
-  134:
-    tenant: MY_FABRIC
-    name: Host_Network_134
 vlan_interfaces:
   Vlan4093:
     description: MLAG_PEER_L3_PEERING
@@ -90,24 +84,6 @@ vlan_interfaces:
     ip_address: 10.20.20.3/24
     ip_virtual_router_addresses:
     - 10.20.20.1
-  Vlan112:
-    tenant: MY_FABRIC
-    tags:
-    - 112
-    description: Host_Network_112
-    shutdown: false
-    ip_address: 10.111.112.3/24
-    ip_virtual_router_addresses:
-    - 10.111.112.1
-  Vlan134:
-    tenant: MY_FABRIC
-    tags:
-    - 134
-    description: Host_Network_134
-    shutdown: false
-    ip_address: 10.111.134.3/24
-    ip_virtual_router_addresses:
-    - 10.111.134.1
 port_channel_interfaces:
   Port-Channel1:
     description: MLAG_PEER_s1-spine1_Po1
@@ -122,14 +98,14 @@ port_channel_interfaces:
     description: IDF1_Po2
     type: switched
     shutdown: false
-    vlans: 10,20,112,134
+    vlans: 10,20
     mode: trunk
     mlag: 2
   Port-Channel4:
     description: IDF2_Po2
     type: switched
     shutdown: false
-    vlans: 10,20,112,134
+    vlans: 10,20
     mode: trunk
     mlag: 4
 ethernet_interfaces:

@@ -1,0 +1,75 @@
+static_routes:
+- vrf: default
+  destination_address_prefix: 0.0.0.0/0
+  gateway: 192.168.0.1
+service_routing_protocols_model: multi-agent
+ip_routing: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+spanning_tree:
+  mode: mstp
+  mst_instances:
+    '0':
+      priority: 16384
+local_users:
+  arista:
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$QKglMNH1byQBb1RZ$CpICxVdZMgGypU88R9rBXYvobnp9NithP3ekBz.y6W6h6nIyBDKY.MKRJPiRLgEsYqoCI1g2SxorD9mQaGFKc/
+    ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh
+      arista@cleveland-atd-avd-1-30e03f6d
+vrfs:
+  default:
+    ip_routing: false
+management_interfaces:
+  Management0:
+    description: oob_management
+    shutdown: false
+    vrf: default
+    ip_address: 192.168.0.17/24
+    gateway: 192.168.0.1
+    type: oob
+management_api_http:
+  enable_vrfs:
+    default: {}
+  enable_https: true
+ethernet_interfaces:
+  Ethernet1:
+    peer: s1-leaf3
+    peer_interface: Ethernet4
+    peer_type: leaf
+    description: S1-LEAF3_Ethernet4
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 1
+      mode: active
+  Ethernet2:
+    peer: s1-leaf4
+    peer_interface: Ethernet4
+    peer_type: leaf
+    description: S1-LEAF4_Ethernet4
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 1
+      mode: active
+port_channel_interfaces:
+  Port-Channel1:
+    description: IDF2_Po4
+    type: switched
+    shutdown: false
+    vlans: 10,20
+    mode: trunk
+vlans:
+  10:
+    tenant: MY_FABRIC
+    name: Ten
+  20:
+    tenant: MY_FABRIC
+    name: Twenty
+ip_igmp_snooping:
+  globally_enabled: true

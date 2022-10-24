@@ -49,12 +49,6 @@ vlans:
   20:
     tenant: MY_FABRIC
     name: Twenty
-  112:
-    tenant: MY_FABRIC
-    name: Host_Network_112
-  134:
-    tenant: MY_FABRIC
-    name: Host_Network_134
 vlan_interfaces:
   Vlan4094:
     description: MLAG_PEER
@@ -75,9 +69,16 @@ port_channel_interfaces:
     description: SPINES_Po4
     type: switched
     shutdown: false
-    vlans: 10,20,112,134
+    vlans: 10,20
     mode: trunk
     mlag: 2
+  Port-Channel4:
+    description: S1-HOST2_Po1
+    type: switched
+    shutdown: false
+    vlans: 10,20
+    mode: trunk
+    mlag: 4
 ethernet_interfaces:
   Ethernet1:
     peer: s1-leaf4
@@ -118,6 +119,16 @@ ethernet_interfaces:
     shutdown: false
     channel_group:
       id: 2
+      mode: active
+  Ethernet4:
+    peer: s1-host2
+    peer_interface: Ethernet1
+    peer_type: leaf
+    description: S1-HOST2_Ethernet1
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 4
       mode: active
 mlag_configuration:
   domain_id: IDF2

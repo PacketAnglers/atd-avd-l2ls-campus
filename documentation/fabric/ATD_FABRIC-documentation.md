@@ -17,6 +17,8 @@
 
 | POD | Type | Node | Management IP | Platform | Provisioned in CloudVision |
 | --- | ---- | ---- | ------------- | -------- | -------------------------- |
+| ATD_FABRIC | leaf | s1-host1 | 192.168.0.16/24 | vEOS | Provisioned |
+| ATD_FABRIC | leaf | s1-host2 | 192.168.0.17/24 | vEOS | Provisioned |
 | ATD_FABRIC | leaf | s1-leaf1 | 192.168.0.12/24 | vEOS | Provisioned |
 | ATD_FABRIC | leaf | s1-leaf2 | 192.168.0.13/24 | vEOS | Provisioned |
 | ATD_FABRIC | leaf | s1-leaf3 | 192.168.0.14/24 | vEOS | Provisioned |
@@ -34,6 +36,10 @@
 
 | Type | Node | Node Interface | Peer Type | Peer Node | Peer Interface |
 | ---- | ---- | -------------- | --------- | ----------| -------------- |
+| leaf | s1-host1 | Ethernet1 | leaf | s1-leaf1 | Ethernet4 |
+| leaf | s1-host1 | Ethernet2 | leaf | s1-leaf2 | Ethernet4 |
+| leaf | s1-host2 | Ethernet1 | leaf | s1-leaf3 | Ethernet4 |
+| leaf | s1-host2 | Ethernet2 | leaf | s1-leaf4 | Ethernet4 |
 | leaf | s1-leaf1 | Ethernet1 | mlag_peer | s1-leaf2 | Ethernet1 |
 | leaf | s1-leaf1 | Ethernet2 | l3spine | s1-spine1 | Ethernet2 |
 | leaf | s1-leaf1 | Ethernet3 | l3spine | s1-spine2 | Ethernet2 |

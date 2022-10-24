@@ -24,11 +24,19 @@ ATD:
               ansible_host: 192.168.0.14
             s1-leaf4:
               ansible_host: 192.168.0.15
+        ATD_HOSTS:
+          hosts:
+            s1-host1:
+              ansible_host: 192.168.0.16
+            s1-host2:
+              ansible_host: 192.168.0.17
         ATD_FABRIC_SERVICES:
           children:
             ATD_SPINES:
             ATD_LEAFS:
+            ATD_HOSTS:
         ATD_FABRIC_PORTS:
           children:
             ATD_SPINES:
             ATD_LEAFS:
+            ATD_HOSTS:

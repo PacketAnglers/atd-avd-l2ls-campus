@@ -1,4 +1,4 @@
-# s1-spine2
+# s1-host2
 # Table of Contents
 
 - [Management](#management)
@@ -15,9 +15,6 @@
   - [AAA Authorization](#aaa-authorization)
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
-- [MLAG](#mlag)
-  - [MLAG Summary](#mlag-summary)
-  - [MLAG Device Configuration](#mlag-device-configuration)
 - [Spanning Tree](#spanning-tree)
   - [Spanning Tree Summary](#spanning-tree-summary)
   - [Spanning Tree Device Configuration](#spanning-tree-device-configuration)
@@ -30,11 +27,8 @@
 - [Interfaces](#interfaces)
   - [Ethernet Interfaces](#ethernet-interfaces)
   - [Port-Channel Interfaces](#port-channel-interfaces)
-  - [Loopback Interfaces](#loopback-interfaces)
-  - [VLAN Interfaces](#vlan-interfaces)
 - [Routing](#routing)
   - [Service Routing Protocols Model](#service-routing-protocols-model)
-  - [Virtual Router MAC Address](#virtual-router-mac-address)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
   - [Static Routes](#static-routes)
@@ -57,7 +51,7 @@
 
 | Management Interface | description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management0 | oob_management | oob | default | 192.168.0.11/24 | 192.168.0.1 |
+| Management0 | oob_management | oob | default | 192.168.0.17/24 | 192.168.0.1 |
 
 #### IPv6
 
@@ -72,7 +66,7 @@
 interface Management0
    description oob_management
    no shutdown
-   ip address 192.168.0.11/24
+   ip address 192.168.0.17/24
 ```
 
 ## DNS Domain
@@ -251,29 +245,6 @@ daemon TerminAttr
    no shutdown
 ```
 
-# MLAG
-
-## MLAG Summary
-
-| Domain-id | Local-interface | Peer-address | Peer-link |
-| --------- | --------------- | ------------ | --------- |
-| SPINES | Vlan4094 | 10.0.0.0 | Port-Channel1 |
-
-Dual primary detection is disabled.
-
-## MLAG Device Configuration
-
-```eos
-!
-mlag configuration
-   domain-id SPINES
-   local-interface Vlan4094
-   peer-address 10.0.0.0
-   peer-link Port-Channel1
-   reload-delay mlag 300
-   reload-delay non-mlag 330
-```
-
 # Spanning Tree
 
 ## Spanning Tree Summary
@@ -284,19 +255,14 @@ STP mode: **mstp**
 
 | Instance(s) | Priority |
 | -------- | -------- |
-| 0 | 4096 |
-
-### Global Spanning-Tree Settings
-
-- Spanning Tree disabled for VLANs: **4093-4094**
+| 0 | 16384 |
 
 ## Spanning Tree Device Configuration
 
 ```eos
 !
 spanning-tree mode mstp
-no spanning-tree vlan-id 4093-4094
-spanning-tree mst 0 priority 4096
+spanning-tree mst 0 priority 16384
 ```
 
 # Internal VLAN Allocation Policy
@@ -322,8 +288,6 @@ vlan internal order ascending range 1006 1199
 | ------- | ---- | ------------ |
 | 10 | Ten | - |
 | 20 | Twenty | - |
-| 4093 | LEAF_PEER_L3 | LEAF_PEER_L3 |
-| 4094 | MLAG_PEER | MLAG |
 
 ## VLANs Device Configuration
 
@@ -334,14 +298,6 @@ vlan 10
 !
 vlan 20
    name Twenty
-!
-vlan 4093
-   name LEAF_PEER_L3
-   trunk group LEAF_PEER_L3
-!
-vlan 4094
-   name MLAG_PEER
-   trunk group MLAG
 ```
 
 # Interfaces
@@ -354,12 +310,8 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | MLAG_PEER_s1-spine1_Ethernet1 | *trunk | *2-4094 | *- | *['LEAF_PEER_L3', 'MLAG'] | 1 |
-| Ethernet2 | S1-LEAF1_Ethernet3 | *trunk | *10,20 | *- | *- | 2 |
-| Ethernet3 | S1-LEAF2_Ethernet3 | *trunk | *10,20 | *- | *- | 2 |
-| Ethernet4 | S1-LEAF3_Ethernet3 | *trunk | *10,20 | *- | *- | 4 |
-| Ethernet5 | S1-LEAF4_Ethernet3 | *trunk | *10,20 | *- | *- | 4 |
-| Ethernet6 | MLAG_PEER_s1-spine1_Ethernet6 | *trunk | *2-4094 | *- | *['LEAF_PEER_L3', 'MLAG'] | 1 |
+| Ethernet1 | S1-LEAF3_Ethernet4 | *trunk | *10,20 | *- | *- | 1 |
+| Ethernet2 | S1-LEAF4_Ethernet4 | *trunk | *10,20 | *- | *- | 1 |
 
 *Inherited from Port-Channel Interface
 
@@ -368,32 +320,12 @@ vlan 4094
 ```eos
 !
 interface Ethernet1
-   description MLAG_PEER_s1-spine1_Ethernet1
+   description S1-LEAF3_Ethernet4
    no shutdown
    channel-group 1 mode active
 !
 interface Ethernet2
-   description S1-LEAF1_Ethernet3
-   no shutdown
-   channel-group 2 mode active
-!
-interface Ethernet3
-   description S1-LEAF2_Ethernet3
-   no shutdown
-   channel-group 2 mode active
-!
-interface Ethernet4
-   description S1-LEAF3_Ethernet3
-   no shutdown
-   channel-group 4 mode active
-!
-interface Ethernet5
-   description S1-LEAF4_Ethernet3
-   no shutdown
-   channel-group 4 mode active
-!
-interface Ethernet6
-   description MLAG_PEER_s1-spine1_Ethernet6
+   description S1-LEAF4_Ethernet4
    no shutdown
    channel-group 1 mode active
 ```
@@ -406,114 +338,18 @@ interface Ethernet6
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | MLAG_PEER_s1-spine1_Po1 | switched | trunk | 2-4094 | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
-| Port-Channel2 | IDF1_Po2 | switched | trunk | 10,20 | - | - | - | - | 2 | - |
-| Port-Channel4 | IDF2_Po2 | switched | trunk | 10,20 | - | - | - | - | 4 | - |
+| Port-Channel1 | IDF2_Po4 | switched | trunk | 10,20 | - | - | - | - | - | - |
 
 ### Port-Channel Interfaces Device Configuration
 
 ```eos
 !
 interface Port-Channel1
-   description MLAG_PEER_s1-spine1_Po1
-   no shutdown
-   switchport
-   switchport trunk allowed vlan 2-4094
-   switchport mode trunk
-   switchport trunk group LEAF_PEER_L3
-   switchport trunk group MLAG
-!
-interface Port-Channel2
-   description IDF1_Po2
+   description IDF2_Po4
    no shutdown
    switchport
    switchport trunk allowed vlan 10,20
    switchport mode trunk
-   mlag 2
-!
-interface Port-Channel4
-   description IDF2_Po2
-   no shutdown
-   switchport
-   switchport trunk allowed vlan 10,20
-   switchport mode trunk
-   mlag 4
-```
-
-## Loopback Interfaces
-
-### Loopback Interfaces Summary
-
-#### IPv4
-
-| Interface | Description | VRF | IP Address |
-| --------- | ----------- | --- | ---------- |
-| Loopback0 | - | default | 1.1.1.2/32 |
-
-#### IPv6
-
-| Interface | Description | VRF | IPv6 Address |
-| --------- | ----------- | --- | ------------ |
-| Loopback0 | - | default | - |
-
-
-### Loopback Interfaces Device Configuration
-
-```eos
-!
-interface Loopback0
-   no shutdown
-   ip address 1.1.1.2/32
-```
-
-## VLAN Interfaces
-
-### VLAN Interfaces Summary
-
-| Interface | Description | VRF |  MTU | Shutdown |
-| --------- | ----------- | --- | ---- | -------- |
-| Vlan10 | Ten | default | - | False |
-| Vlan20 | Twenty | default | - | False |
-| Vlan4093 | MLAG_PEER_L3_PEERING | default | 9000 | False |
-| Vlan4094 | MLAG_PEER | default | 9000 | False |
-
-#### IPv4
-
-| Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
-| --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
-| Vlan10 |  default  |  10.10.10.3/24  |  -  |  10.10.10.1  |  -  |  -  |  -  |
-| Vlan20 |  default  |  10.20.20.3/24  |  -  |  10.20.20.1  |  -  |  -  |  -  |
-| Vlan4093 |  default  |  10.1.1.1/31  |  -  |  -  |  -  |  -  |  -  |
-| Vlan4094 |  default  |  10.0.0.1/31  |  -  |  -  |  -  |  -  |  -  |
-
-### VLAN Interfaces Device Configuration
-
-```eos
-!
-interface Vlan10
-   description Ten
-   no shutdown
-   ip address 10.10.10.3/24
-   ip virtual-router address 10.10.10.1
-!
-interface Vlan20
-   description Twenty
-   no shutdown
-   ip address 10.20.20.3/24
-   ip virtual-router address 10.20.20.1
-!
-interface Vlan4093
-   description MLAG_PEER_L3_PEERING
-   no shutdown
-   mtu 9000
-   ip address 10.1.1.1/31
-!
-interface Vlan4094
-   description MLAG_PEER
-   no shutdown
-   mtu 9000
-   no autostate
-   ip address 10.0.0.1/31
 ```
 
 # Routing
@@ -524,19 +360,6 @@ Multi agent routing protocol model enabled
 ```eos
 !
 service routing protocols model multi-agent
-```
-
-## Virtual Router MAC Address
-
-### Virtual Router MAC Address Summary
-
-#### Virtual Router MAC Address: aa:aa:bb:bb:cc:cc
-
-### Virtual Router MAC Address Configuration
-
-```eos
-!
-ip virtual-router mac-address aa:aa:bb:bb:cc:cc
 ```
 
 ## IP Routing
