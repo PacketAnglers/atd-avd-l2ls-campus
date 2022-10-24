@@ -12,9 +12,18 @@ Open Terminal in VScode and run the following installation script.  This will pr
 bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 ```
 
-## STEP #2 - Update Password
+## STEP #2 - Update Passwords and SSH Keys
 
-In the group_vars/ATD.yml file, update the `ansible_password:` with your lab's unique password on line 5.
+In the group_vars/ATD.yml file, update the following variables:
+
+Ansible Credentails to log into your switches
+
+- line 5 - `ansible_password:` with your Lab's unique password
+
+Local User sha512 password and ssh key to configure on the switch
+
+- line 49 - `sha512_password:`
+- line 49 - `ssh_key:`
 
 ``` yaml
 ---
@@ -23,6 +32,19 @@ In the group_vars/ATD.yml file, update the `ansible_password:` with your lab's u
 ansible_user: arista
 ansible_password: XXXXXXXXXXX # Update password with your lab's password
 ansible_network_os: arista.eos.eos
+
+... # truncated
+
+# local users
+local_users:
+  arista:
+    privilege: 15
+    role: network-admin
+    # Update sha512_password and ssh_key with your Lab's password and key
+    sha512_password: "XXXXXXXXXXXXXXXXXXXXXXXXXX"
+    ssh_key: "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+
 ```
 
 ## STEP #3 - Build Configs
