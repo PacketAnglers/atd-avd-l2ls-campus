@@ -119,7 +119,7 @@ PING 10.20.20.101 (10.20.20.101) 72(100) bytes of data.
 
 # Network Ports and 802.1x Port Profiles
 
-So far, the above example has shown how to build and deploy configurations using AVD. In a Campus environment, we typically configure a range of ports within a leaf switch to have the same charactestics (vlan, mode, portfast, NAC, etc...).  AVD provides a way to define a **Port Profile** and then apply to a range of ports across multiple switches.  For example, suppose we wish to configure port range Ethernet7-48 on leafs s1-leaf1 and s1-leaf2 with the following configuration.
+So far, the above example has shown how to build and deploy configurations using AVD. In a Campus environment, we typically configure a range of ports within a leaf switch to have the same charactestics (vlan, mode, portfast, NAC, etc...).  AVD provides a way to define a **Port Profile** and then apply to a range of ports across multiple switches.  For example, suppose we wish to configure port range Ethernet7-48 on leafs s1-leaf1 and s1-leaf2 with the following configuration.  Documentation for this feature can be found [here](https://avd.sh/en/devel/roles/eos_designs/doc/connected-endpoints.html#network-ports_1).
 
 ``` bash
 interface EthernetX
