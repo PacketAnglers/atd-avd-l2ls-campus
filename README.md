@@ -116,3 +116,6 @@ PING 10.20.20.101 (10.20.20.101) 72(100) bytes of data.
 80 bytes from 10.20.20.101: icmp_seq=4 ttl=63 time=21.1 ms
 80 bytes from 10.20.20.101: icmp_seq=5 ttl=63 time=23.0 ms
 ```
+
+## Add Section for range of network_ports and 802.1x port_profiles
+
