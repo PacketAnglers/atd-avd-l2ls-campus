@@ -40,7 +40,7 @@ config
 username arista privilege 15 role network-admin secret XXXXXXXX # your unique Lab password
 ```
 
-Now we can display the sha512 password and ssh key.
+Now we can display the sha512 password and ssh key by typing the following command.
 
 ``` bash
 sh run section username
@@ -49,7 +49,7 @@ username arista privilege 15 role network-admin secret sha512 $6$ebPETJmTzMXalZW
 username arista ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh arista@cleveland-atd-avd-1-30e03f6d
 ```
 
-Now copy the sha512 password and ssh_key and update them below.  _Remember to keep the double quotes._
+Now update sha512 password and ssh_key with these values.  _Remember to keep the double quotes and DO NOT REMOVE `ssh-rsa` from the ssh_key variable._
 
 - line 49 - `sha512_password:`
 - line 50 - `ssh_key:`
