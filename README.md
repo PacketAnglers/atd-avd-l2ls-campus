@@ -6,13 +6,21 @@ The following repo builds an L2LS Campus fabric and deploys the configurations o
 
 ## STEP #1 - Install AVD and Modules
 
-Open Terminal in VScode and run the following installation script.  This will prep your host with AVD and install module requirements.
+Launch the Progammability IDE and start a new terminal session and run the following installation script.  This will prep your host with AVD and install module requirements.
 
 ``` bash
 bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 ```
 
+Navigate to the following directory.  All following commands will be ran from here.
+
+``` bash
+cd labfiles/cleveland-atd-avd
+```
+
 ## STEP #2 - Update Passwords and SSH Keys
+
+**ADD GRAPHIC HERE**
 
 In the **group_vars/ATD.yml** file, update the following **three** variables:
 
@@ -68,7 +76,7 @@ local_users:
 
 ## STEP #3 - Build Configs
 
-The command below will run an ansible playbook and build the AVD generated configurations and store them in a local directory `intended/configs`.
+From the terminal window, run the command below to execute an ansible playbook and build the AVD generated configurations and store them in a local directory `intended/configs`.
 
 ``` bash
 make build
