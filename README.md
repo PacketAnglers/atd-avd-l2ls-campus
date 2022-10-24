@@ -6,17 +6,17 @@ The following repo builds an L2LS Campus fabric and deploys the configurations o
 
 ## STEP #1 - Install AVD and Modules
 
-Launch the Progammability IDE (lefthand column of Lab Topology) and start a new terminal session.  This will prep your host with AVD and install module requirements.
+Launch the Progammability IDE (lefthand column of Lab Topology) and start a new terminal session.
 
 ![Topo](images/programmability_ide.png)
 
-From the terminal session, run the following installation script.
+From the terminal session, run the following installation script. This will prep your host with AVD and install module requirements.
 
 ``` bash
 bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 ```
 
-Navigate to the following directory.  All following commands will be ran from here.
+Navigate to the following directory. All following commands will be ran from here.
 
 ``` bash
 cd labfiles/cleveland-atd-avd
@@ -32,7 +32,7 @@ In the **group_vars/ATD.yml** file, update the following **three** variables:
 - line 49 - `sha512_password:` from a switch
 - line 50 - `ssh_key:` from a switch
 
-The `ansible_password` variable is used by Ansible to log into your switches to deploy configurations.  The password is unique to your Lab instance and can be found from the **Usernames and Passwords** section of your lab topology screen.
+The `ansible_password` variable is used by Ansible to log into your switches to deploy configurations. The password is unique to your Lab instance and can be found from the **Usernames and Passwords** section of your lab topology screen.
 
 <img src="images/username_passwords.png" alt="username_passwords" width="500"/>
 
@@ -62,7 +62,7 @@ username arista privilege 15 role network-admin secret sha512 $6$ebPETJmTzMXalZW
 username arista ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh arista@cleveland-atd-avd-1-30e03f6d
 ```
 
-Now update sha512_password and ssh_key with these values.  _Remember to keep the double quotes and DO NOT REMOVE `ssh-rsa` from the ssh_key variable._
+Now update sha512_password and ssh_key with these values. _Remember to keep the double quotes and DO NOT REMOVE `ssh-rsa` from the ssh_key variable._
 
 - line 49 - `sha512_password:`
 - line 50 - `ssh_key:`
@@ -88,7 +88,7 @@ make build
 
 ## STEP #4 - Deploy Configs to your Lab Fabric
 
-The command below will build your configuration files and deploy them to your switches.  This playbook uses Arista's eAPI & eos_config module to do a config replacement of the switches running_config.
+The command below will build your configuration files and deploy them to your switches. This playbook uses Arista's eAPI & eos_config module to do a config replacement of the switches running_config.
 
 ``` bash
 make deploy
