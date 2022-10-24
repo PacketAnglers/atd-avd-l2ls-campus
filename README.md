@@ -16,7 +16,7 @@ From the terminal session, run the following installation script. This will prep
 bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 ```
 
-Navigate to the following directory. All following commands will be ran from here.
+Change to the following directory. All following commands will be ran from here.
 
 ``` bash
 cd labfiles/cleveland-atd-avd
