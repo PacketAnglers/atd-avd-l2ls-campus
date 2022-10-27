@@ -12,7 +12,13 @@ This repository builds an L2LS Campus fabric onto the Dual Data Center ATD Lab. 
 
 ## STEP #1 - Launch Programmability IDE
 
-Launch the Progammability IDE (lefthand column of Lab Topology) and start a new terminal session.
+Launch the Progammability IDE (lefthand column of Lab Topology).  If this is the first time starting the IDE you will be prompted for a code-server password.  The password is noted on the Lab Topology page.
+
+<img src="images/code-server.png" alt="folder" width="400"/>
+
+Click through any popups that may occur.
+
+Now, start a new terminal session by clicking on the hamburger and selecting Terminal->New Terminal.
 
 ![Topo](images/programmability_ide.png)
 
@@ -38,9 +44,11 @@ From the Programmibility IDE Explorer, navigate to the `labfiles/cleveland-atd-a
 
 <img src="images/folder.png" alt="folder" width="200"/>
 
-Click on the **group_vars/ATD.yml** file to open an editor tab and update the following **three** variables:
+Click on the **group_vars/ATD.yml** file to open an editor tab and update the following **three** variables.
 
-- line 5 - `ansible_password:` with your Lab's unique password
+> **IMPORTANT** - You must login to a switch to change and retreieve the `arista` user password to a sha512 version.
+
+- line 5 - `ansible_password:` replace with your Lab's unique password
 - line 49 - `sha512_password:` from a switch
 - line 50 - `ssh_key:` from a switch
 
@@ -57,19 +65,22 @@ ansible_password: XXXXXXXXXXX # Update password with your Lab's password
 ansible_network_os: arista.eos.eos
 ```
 
-Update the switches local `arista` user with a **sha512** password by typing to the following on one of your Lab switches.
+_Now the tricky part...._  The current `arista` username password on the switches is an encrypted type 5 password.  We need to convert this password to a sha512 version. This can be accomplished by logging on to one of your switches and running the following command.  _**Update `XXXXXXXX` with your Lab's unique password.**_
 
 ``` bash
 config
-username arista privilege 15 role network-admin secret XXXXXXXX # your unique Lab password
+username arista privilege 15 role network-admin secret XXXXXXXX
 ```
 
-Now we can display the sha512 password and ssh key by typing the following command.
+Now we can display the sha512 password and ssh key for username `arista` by typing the following command.
 
 ``` bash
-show run section username
+show run section username | grep arista
+```
 
-username admin privilege 15 role network-admin secret 5 $1$5O85YVVn$HrXcfOivJEnISTMb6xrJc.
+Output:
+
+``` bash
 username arista privilege 15 role network-admin secret sha512 $6$ebPETJmTzMXalZW0$7zyBIqsR/yjRh2LVL45dFLS5YSEGLfmrnnZtBNcaXW1YncuNWI6UMhk2wOmalqhSL/lFNhMpKhXnY.ztYXtQ31
 username arista ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh arista@cleveland-atd-avd-1-30e03f6d
 ```
