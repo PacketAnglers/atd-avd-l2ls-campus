@@ -12,7 +12,7 @@ This repository builds an L2LS Campus fabric onto the Dual Data Center ATD Lab. 
 
 ## STEP #1 - Launch Programmability IDE
 
-Launch the Progammability IDE (lefthand column of Lab Topology).  If this is the first time starting the IDE you will be prompted for a code-server password.  The password is noted on the Lab Topology page.
+Launch the Progammability IDE (lefthand column of Lab Topology).  If this is the first time starting the IDE you will be prompted for a code-server password.  Your unique password is noted on the Lab Topology page.
 
 <img src="images/code-server.png" alt="folder" width="400"/>
 
@@ -46,13 +46,13 @@ From the Programmibility IDE Explorer, navigate to the `labfiles/cleveland-atd-a
 
 Click on the **group_vars/ATD.yml** file to open an editor tab and update the following **three** variables.
 
-> **IMPORTANT** - You must login to a switch to change and retreieve the `arista` user password to a sha512 version.
+> **IMPORTANT** - You must login to a switch to change the `arista` user password to a sha512 version.  The updated sha512 password will be use to populate the `sha512_password:` key on line 49 of the ATD.yml file.
 
 - line 5 - `ansible_password:` replace with your Lab's unique password
-- line 49 - `sha512_password:` from a switch
-- line 50 - `ssh_key:` from a switch
+- line 49 - `sha512_password:` retrieve from switch
+- line 50 - `ssh_key:` retrieve from switch
 
-The `ansible_password` variable is used by Ansible to log into your switches to deploy configurations. The password is unique to your Lab instance and can be found from the **Usernames and Passwords** section of your lab topology screen.
+The `ansible_password` key (line 5) is used by Ansible to log into your switches to deploy configurations. The password is unique to your Lab instance and can be found from the **Usernames and Passwords** section of your lab topology screen.
 
 <img src="images/username_passwords.png" alt="username_passwords" width="500"/>
 
@@ -65,14 +65,14 @@ ansible_password: XXXXXXXXXXX # Update password with your Lab's password
 ansible_network_os: arista.eos.eos
 ```
 
-_Now the tricky part...._  The current `arista` username password on the switches is an encrypted type 5 password.  We need to convert this password to a sha512 version. This can be accomplished by logging on to one of your switches and running the following command.  _**Update `XXXXXXXX` with your Lab's unique password.**_
+_Now the tricky part lines 49 & 50...._  The current `arista` username password on the switches is an encrypted type 5 password.  We need to convert this password to a sha512 version. This can be accomplished by logging on to one of your switches and running the following commands.  _**Make sure to update `XXXXXXXX` with your Lab's unique password.**_
 
 ``` bash
 config
 username arista privilege 15 role network-admin secret XXXXXXXX
 ```
 
-Now we can display the sha512 password and ssh key for username `arista` by typing the following command.
+Now we can display and copy/paste the sha512 password and ssh key for username `arista` by typing the following command.
 
 ``` bash
 show run section username | grep arista
@@ -90,6 +90,8 @@ Now update sha512_password and ssh_key with these values. _Remember to keep the 
 - line 49 - `sha512_password:`
 - line 50 - `ssh_key:`
 
+You file should look similar to below.  DO NOT USE these values, but rather the ones from your show command output, as they are unique to your switches.
+
 ``` yaml
 # local users
 local_users:
@@ -97,8 +99,8 @@ local_users:
     privilege: 15
     role: network-admin
     # Update sha512_password and ssh_key from one of your Lab switches
-    sha512_password: "XXXXXXXXXXXXXXXXXXXXXXXXXX"
-    ssh_key: "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    sha512_password: "$6$ebPETJmTzMXalZW0$7zyBIqsR/yjRh2LVL45dFLS5YSEGLfmrnnZtBNcaXW1YncuNWI6UMhk2wOmalqhSL/lFNhMpKhXnY.ztYXtQ31"
+    ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh arista@cleveland-atd-avd-1-30e03f6d"
 ```
 
 ## STEP #5 - Build Configs
