@@ -6,15 +6,17 @@ This repository builds an L2LS Campus fabric onto the Dual Data Center ATD Lab. 
 
 ## Requirements
 
-- Need a running Dual Data Center ATD Lab.
+- Start the Dual Data Center ATD Lab
 
 <img src="images/running-dual-dc-lab.png" alt="folder" width="400"/>
 
-## STEP #1 - Install AVD and Modules
+## STEP #1 - Launch Programmability IDE
 
 Launch the Progammability IDE (lefthand column of Lab Topology) and start a new terminal session.
 
 ![Topo](images/programmability_ide.png)
+
+## STEP #2 - Install AVD
 
 From the terminal session, run the following installation script. This will prep your host with AVD and install module requirements.
 
@@ -22,13 +24,15 @@ From the terminal session, run the following installation script. This will prep
 bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 ```
 
+## STEP #3 - Change Working Directory
+
 Change to the following directory. All following commands will be ran from here.
 
 ``` bash
 cd labfiles/cleveland-atd-avd
 ```
 
-## STEP #2 - Update Passwords and SSH Keys
+## STEP #4 - Update Passwords and SSH Keys
 
 From the Programmibility IDE Explorer, navigate to the `labfiles/cleveland-atd-avd`
 
@@ -53,7 +57,7 @@ ansible_password: XXXXXXXXXXX # Update password with your Lab's password
 ansible_network_os: arista.eos.eos
 ```
 
-Update the switches local `arista` user with a sha512 password by typing to the following on one of your Lab switches.
+Update the switches local `arista` user with a **sha512** password by typing to the following on one of your Lab switches.
 
 ``` bash
 config
@@ -86,7 +90,7 @@ local_users:
     ssh_key: "ssh-rsa XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 
-## STEP #3 - Build Configs
+## STEP #5 - Build Configs
 
 From the terminal window, run the command below to execute an ansible playbook and build the AVD generated configurations and store them in a local directory `intended/configs`.
 
@@ -94,7 +98,7 @@ From the terminal window, run the command below to execute an ansible playbook a
 make build
 ```
 
-## STEP #4 - Deploy Configs to your Lab Fabric
+## STEP #6 - Deploy Configs to your Lab Fabric
 
 The command below will deploy your configurations to your switches. This playbook uses Arista's eAPI & eos_config module to do a config replacement of the switches running_config.
 
@@ -102,7 +106,7 @@ The command below will deploy your configurations to your switches. This playboo
 make deploy
 ```
 
-## STEP #5 - Test Traffic from Host1 to Host2
+## STEP #7 - Test Traffic from Host1 to Host2
 
 Connect to `s1-host` and ping `s1-host2`
 
@@ -117,7 +121,7 @@ PING 10.20.20.101 (10.20.20.101) 72(100) bytes of data.
 80 bytes from 10.20.20.101: icmp_seq=5 ttl=63 time=23.0 ms
 ```
 
-# Network Ports and 802.1x Port Profiles
+## Network Ports and 802.1x Port Profiles
 
 So far, the above example has shown how to build and deploy configurations using AVD. In a Campus environment, we typically configure a range of ports within a leaf switch to have the same charactestics (vlan, mode, portfast, NAC, etc...).  AVD provides a way to define a **Port Profile** and then apply to a range of ports across multiple switches.  For example, suppose we wish to configure port range Ethernet7-48 on leafs s1-leaf1 and s1-leaf2 with the following configuration.  Documentation for this feature can be found [here](https://avd.sh/en/devel/roles/eos_designs/doc/connected-endpoints.html#network-ports_1).
 
@@ -183,4 +187,3 @@ make build
 ## Next steps
 
 Try modifying the network_ports keys to include other ports and switches...
-
