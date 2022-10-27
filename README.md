@@ -34,7 +34,7 @@ cd labfiles/cleveland-atd-avd
 
 ## STEP #4 - Update Passwords and SSH Keys
 
-From the Programmibility IDE Explorer, navigate to the `labfiles/cleveland-atd-avd`
+From the Programmibility IDE Explorer, navigate to the `labfiles/cleveland-atd-avd/group_vars` folder.
 
 <img src="images/folder.png" alt="folder" width="200"/>
 
