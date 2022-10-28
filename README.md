@@ -1,6 +1,6 @@
 # Cleveland ATD - 11/02/2022
 
-This repository builds an L2LS Campus fabric onto the Dual Data Center ATD Lab. The below diagram respresents a single DC within the larger Lab topology. Using AVD, we will build and deploy configurations for an example Campus Fabric.
+This repository builds a L2LS Campus fabric onto the Dual Data Center ATD Lab. The below diagram respresents a single DC within the larger Lab topology. Using AVD, we will build and deploy configurations for an example Campus Fabric.
 
 ![Topo](images/ATD-Campus-Topo.svg)
 
@@ -16,7 +16,7 @@ Launch the Progammability IDE (lefthand column of Lab Topology).  If this is the
 
 <img src="images/code-server.png" alt="folder" width="400"/>
 
-Click through any popups that may occur.
+Click through any pop-ups that may occur.
 
 Now, start a new terminal session by clicking on the hamburger and selecting Terminal->New Terminal.
 
@@ -32,7 +32,7 @@ bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 
 ## STEP #3 - Change Working Directory
 
-Change to the following directory. All following commands will be ran from here.
+Change to the following directory. All commands will be executed from here.
 
 ``` bash
 cd labfiles/cleveland-atd-avd
@@ -40,17 +40,14 @@ cd labfiles/cleveland-atd-avd
 
 ## STEP #4 - Update Passwords and SSH Keys
 
-From the Programmibility IDE Explorer, navigate to the `labfiles/cleveland-atd-avd/group_vars` folder.
+From the Programmibility IDE Explorer:
 
-<img src="images/folder.png" alt="folder" width="200"/>
-
-Click on the **group_vars/ATD.yml** file to open an editor tab and update the following **three** variables.
-
-> **IMPORTANT** - You must login to a switch to change the `arista` user password to a sha512 version.  The updated sha512 password will be use to populate the `sha512_password:` key on line 49 of the ATD.yml file.
-
-- line 5 - `ansible_password:` replace with your Lab's unique password
-- line 49 - `sha512_password:` retrieve from switch
-- line 50 - `ssh_key:` retrieve from switch
+- Navigate to the `labfiles/cleveland-atd-avd/group_vars` folder.
+- Click on the **group_vars/ATD.yml** file to open an editor tab
+- Update the following **three** variables.
+  - line 5 - `ansible_password:` replace with your Lab's unique password
+  - line 49 - `sha512_password:` retrieve from switch
+  - line 50 - `ssh_key:` retrieve from switch
 
 The `ansible_password` key (line 5) is used by Ansible to log into your switches to deploy configurations. The password is unique to your Lab instance and can be found from the **Usernames and Passwords** section of your lab topology screen.
 
