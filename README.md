@@ -61,7 +61,7 @@ ansible_password: aristaxl6a
 
 ### Line 49 - sha512_password
 
-- Convert the current `arista` username type 5 password to a sha512 by running the following commands on one of your switches.
+- Convert the current `arista` username type 5 password to a sha512 by running the following commands on one of your switches. Substitute XXXXXXX with your Lab's unique password.
 
 ``` bash
 config
@@ -106,6 +106,8 @@ From the terminal window, run the command below to execute an ansible playbook a
 make build
 ```
 
+> This command executes the following: `ansible-playbook playbooks/build.yml`
+
 ## STEP #6 - Deploy Configs to your Lab Fabric
 
 Use the command below to deploy your configurations to your switches. This playbook uses Arista's eAPI & eos_config module to do a config replacement of the switch's running_config.
@@ -113,6 +115,8 @@ Use the command below to deploy your configurations to your switches. This playb
 ``` bash
 make deploy
 ```
+
+> This command executes the following: `ansible-playbook playbooks/deploy.yml`
 
 ## STEP #7 - Test Traffic from Host1 to Host2
 
