@@ -44,7 +44,7 @@ From the Programmibility IDE Explorer:
 
 - Navigate to the `labfiles/cleveland-atd-avd/group_vars` folder.
 - Click on the **group_vars/ATD.yml** file to open an editor tab
-- Update the following **three** variables.
+- Update the following three variables.
   - line 5 - `ansible_password:` replace with your Lab's unique password
   - line 49 - `sha512_password:` retrieve from switch
   - line 50 - `ssh_key:` retrieve from switch
@@ -62,14 +62,16 @@ ansible_password: XXXXXXXXXXX # Update password with your Lab's password
 ansible_network_os: arista.eos.eos
 ```
 
-_Now the tricky part lines 49 & 50...._  The current `arista` username password on the switches is an encrypted type 5 password.  We need to convert this password to a sha512 version. This can be accomplished by logging on to one of your switches and running the following commands.  _**Make sure to update `XXXXXXXX` with your Lab's unique password.**_
+Convert the current `arista` username type 5 password to a sha512 version by logging logging on to one of your switches and running the following commands.
+
+ _**Be sure to update `XXXXXXXX` with your Lab's unique password.**_
 
 ``` bash
 config
 username arista privilege 15 role network-admin secret XXXXXXXX
 ```
 
-Now we can display and copy/paste the sha512 password and ssh key for username `arista` by typing the following command.
+Retrieve the sha512 password and ssh key.
 
 ``` bash
 show run section username | grep arista
@@ -82,12 +84,12 @@ username arista privilege 15 role network-admin secret sha512 $6$ebPETJmTzMXalZW
 username arista ssh-key ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDw05IMB87NmRYiVQZi5kr6Lqm4fyVMkWpRj3eh7iSiEMckeTuF9DLQtIHLOvGWt7R+3WJmsfTJwkm/yDql0tOUda9f5RPr0/CY97xwWipGbqtRW0Tqp8EhkWkpGJL+DUcrczAChovomWFj2PUpq+sjNAVzQEYtkN9ZIF58WwkYYW4AeApIq/AyS0N5ET5t4g9hUYwOcRDlJdykWDfdzdKZV3e4hKi+HejHFS3qnKDKeHavLfOxlSG/PQrL7guAqnH4NOdm9TjJ9l9R0K8MBE3iPLTcMQm5Ek+pDfRiCjhcTyd5XWkR3Rl/tFqiB+Qis/WA31sJTXqgVKodn+vVekUh arista@cleveland-atd-avd-1-30e03f6d
 ```
 
-Now update sha512_password and ssh_key with these values. _Remember to keep the double quotes and DO NOT REMOVE `ssh-rsa` from the ssh_key variable._
+Update the sha512_password and ssh_key with the above values values. _Remember to keep the double quotes and DO NOT REMOVE `ssh-rsa` from the ssh_key._
 
 - line 49 - `sha512_password:`
 - line 50 - `ssh_key:`
 
-You file should look similar to below.  DO NOT USE these values, but rather the ones from your show command output, as they are unique to your switches.
+Your file should look similar to below.  **DO NOT USE** these values, but rather the ones from your show command output, as they are unique to your switches.
 
 ``` yaml
 # local users
@@ -110,7 +112,7 @@ make build
 
 ## STEP #6 - Deploy Configs to your Lab Fabric
 
-The command below will deploy your configurations to your switches. This playbook uses Arista's eAPI & eos_config module to do a config replacement of the switches running_config.
+Use the command below to deploy your configurations to your switches. This playbook uses Arista's eAPI & eos_config module to do a config replacement of the switch's running_config.
 
 ``` bash
 make deploy
@@ -133,7 +135,9 @@ PING 10.20.20.101 (10.20.20.101) 72(100) bytes of data.
 
 ## Network Ports and 802.1x Port Profiles
 
-So far, the above example has shown how to build and deploy configurations using AVD. In a Campus environment, we typically configure a range of ports within a leaf switch to have the same charactestics (vlan, mode, portfast, NAC, etc...).  AVD provides a way to define a **Port Profile** and then apply to a range of ports across multiple switches.  For example, suppose we wish to configure port range Ethernet7-48 on leafs s1-leaf1 and s1-leaf2 with the following configuration.  Documentation for this feature can be found [here](https://avd.sh/en/devel/roles/eos_designs/doc/connected-endpoints.html#network-ports_1).
+ In a Campus environment, we typically configure a range of ports within a leaf switch to have the same charactestics (vlan, mode, portfast, NAC, etc...).  AVD provides a way to define a **Port Profile** and then apply it to a range of ports on multiple switches.
+
+ For example, to configure port range Ethernet7-48 on s1-leaf1 and s1-leaf2 with the following configuration we need to update the data model.
 
 ``` bash
 interface EthernetX
