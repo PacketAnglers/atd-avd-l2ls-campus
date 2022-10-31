@@ -1,0 +1,15 @@
+---
+- name: Deploying Changes via CVP
+  hosts: cvp
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: run CVP provisioning
+      import_role:
+          name: arista.avd.eos_config_deploy_cvp
+      vars:
+        container_root: 'ATD_FABRIC'
+        configlets_prefix: 'AVD'
+        state: present
+        device_filter: 's1'
+        execute_tasks: false
