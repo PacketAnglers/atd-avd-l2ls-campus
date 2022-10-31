@@ -5,7 +5,7 @@ fabric_name: ATD_FABRIC
 design:
   type: l2ls
 
-# Spine Switches (L2 Only)
+# Spine Switches
 l3spine:
   defaults:
     platform: vEOS
