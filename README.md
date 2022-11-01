@@ -14,13 +14,13 @@ This repository builds a L2LS Campus fabric on the Dual Data Center ATD Lab. The
 
 
 
-1. [Launch Programmability IDE](#step-1-launch-programmability-ide)
-2. [Install AVD](#step-#2---install-avd)
-3. [Change Working Directory](#step-#3---change-working-directory)
-4. [Update Passwords and SSH Keys](#step-#4---update-passwords-and-ssh-keys)
-5. [Build Configs](#step-#5---build-configs)
-6. [Deploy Configs](#step-#6---deploy-configs)
-7. [Test Traffic](#step-#7---test-traffic)
+1. [Launch Programmability IDE](#step-1---launch-programmability-ide)
+2. [Install AVD](#step-2---install-avd)
+3. [Change Working Directory](#step-3---change-working-directory)
+4. [Update Passwords and SSH Keys](#step-4---update-passwords-and-ssh-keys)
+5. [Build Configs](#step-5---build-configs)
+6. [Deploy Configs](#step-6---deploy-configs)
+7. [Test Traffic](#step-7---test-traffic)
 8. [Network Ports and 802.1x Port Profiles](#step-8---network-ports-and-8021x-port-profiles)
 
 ## STEP #1 - Launch Programmability IDE
