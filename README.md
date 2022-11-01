@@ -110,13 +110,33 @@ make build
 
 ## STEP #6 - Deploy Configs to your Lab Fabric
 
-Use the command below to deploy your configurations to your switches. This playbook uses Arista's eAPI & eos_config module to do a config replacement of the switch's running_config.
+Use either one of the methods below to deploy your configurations to your switches.
+
+### Method #1 - eAPI
+
+This playbook uses Arista's eAPI & eos_config module to do a config replacement of the switch's running_config.
 
 ``` bash
 make deploy
 ```
 
-> This command executes the following: `ansible-playbook playbooks/deploy.yml`
+### Method #2 - CVP
+
+This playbook uses Arista's AVD Galaxy collection to deploy configurations via CVP.  Login to CVP to watch what happens while the playbook runs.
+
+It does the following:
+
+1. Creates configlets and pushes them to CVP
+2. Creates a container topology based on inventory groups
+3. Moves devices to container
+4. Attaches configlets to devices
+5. Creates Tasks
+
+> You will need to create a Change Control in CVP to execute the tasks.  This can be automated as well with setting `execute_tasks: true` in the playbook.
+
+``` bash
+make deploy-cvp
+```
 
 ## STEP #7 - Test Traffic from Host1 to Host2
 

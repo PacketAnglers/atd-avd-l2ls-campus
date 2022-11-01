@@ -12,4 +12,4 @@
         configlets_prefix: 'AVD'
         state: present
         device_filter: 's1'
-        execute_tasks: false
+        # execute_tasks: true

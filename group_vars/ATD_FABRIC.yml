@@ -45,12 +45,10 @@ leaf:
         s1-leaf1:
           id: 3
           mgmt_ip: 192.168.0.12/24
-          uplink_switches: [s1-spine1, s1-spine2]
           uplink_switch_interfaces: [Ethernet2, Ethernet2]
         s1-leaf2:
           id: 4
           mgmt_ip: 192.168.0.13/24
-          uplink_switches: [s1-spine1, s1-spine2]
           uplink_switch_interfaces: [Ethernet3, Ethernet3]
     IDF2:
       mlag: true
@@ -60,12 +58,10 @@ leaf:
         s1-leaf3:
           id: 5
           mgmt_ip: 192.168.0.14/24
-          uplink_switches: [s1-spine1, s1-spine2]
           uplink_switch_interfaces: [Ethernet4, Ethernet4]
         s1-leaf4:
           id: 6
           mgmt_ip: 192.168.0.15/24
-          uplink_switches: [s1-spine1, s1-spine2]
           uplink_switch_interfaces: [Ethernet5, Ethernet5]
 
 # IDF - Host Switches
