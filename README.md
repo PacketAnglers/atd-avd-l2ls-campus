@@ -112,7 +112,7 @@ make build
 
 Use either one of the methods below to deploy your configurations to your switches.
 
-### Method #1 - eAPI
+### Method #1 - eAPI Direct switch (~28 secs)
 
 This playbook uses Arista's eAPI & eos_config module to do a config replacement of the switch's running_config.
 
@@ -120,7 +120,7 @@ This playbook uses Arista's eAPI & eos_config module to do a config replacement 
 make deploy
 ```
 
-### Method #2 - CVP
+### Method #2 - CVP (~6 mins)
 
 This playbook uses Arista's AVD Galaxy collection to deploy configurations via CVP.  Login to CVP to watch what happens while the playbook runs.
 
