@@ -52,6 +52,8 @@ cd labfiles/cleveland-atd-avd
 
 ## STEP #4 - Update Passwords and SSH Keys
 
+The ATD Lab switches are preconfigured with MD5 encrypted passwords.  AVD uses sha512 passwords so we need to convert the current MD5 password to sha512.  **You will need to login to a switch to do this step.**
+
 From the Programmibility IDE Explorer:
 
 - Navigate to the `labfiles/cleveland-atd-avd/group_vars` folder.
