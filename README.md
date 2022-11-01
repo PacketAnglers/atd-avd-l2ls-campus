@@ -10,6 +10,17 @@ This repository builds a L2LS Campus fabric on the Dual Data Center ATD Lab. The
 
 <img src="images/running-dual-dc-lab.png" alt="folder" width="400"/>
 
+## Summary of Steps
+
+1. [Launch Programmability IDE](#step-#1-launch-programmability-ide)
+2. [Install AVD](#step-#2-install-avd)
+3. [Change Working Directory](#step-#3-change-working-directory)
+4. [Update Passwords and SSH Keys](#step-#4-update-passwords-and-ssh-keys)
+5. [Build Configs](#step-#5-build-configs)
+6. [Deploy Configs](#step-#6-deploy-configs)
+7. [Test Traffic](#step-#7-test-traffic)
+8. [Network Ports and 802.1x Port Profiles](#step-#8-network-ports-and-802.1x-port-profiles)
+
 ## STEP #1 - Launch Programmability IDE
 
 - Launch the Progammability IDE.  If this is the first time starting the IDE you will be prompted for a code-server password.  Your unique password is noted on the Lab Topology page.
@@ -98,7 +109,7 @@ make build
 
 > This command executes the following: `ansible-playbook playbooks/build.yml`
 
-## STEP #6 - Deploy Configs to your Lab Fabric
+## STEP #6 - Deploy Configs
 
 Use either one of the methods below to deploy your configurations to your switches.
 
@@ -128,20 +139,14 @@ It does the following:
 make deploy-cvp
 ```
 
-## STEP #7 - Test Traffic from Host1 to Host2
+## STEP #7 - Test Traffic
 
 Connect to `s1-host` and ping `s1-host2`
 
 ``` bash
 ping 10.20.20.101
-
-PING 10.20.20.101 (10.20.20.101) 72(100) bytes of data.
-80 bytes from 10.20.20.101: icmp_seq=1 ttl=63 time=34.0 ms
-80 bytes from 10.20.20.101: icmp_seq=2 ttl=63 time=30.2 ms
-80 bytes from 10.20.20.101: icmp_seq=3 ttl=63 time=25.2 ms
-80 bytes from 10.20.20.101: icmp_seq=4 ttl=63 time=21.1 ms
-80 bytes from 10.20.20.101: icmp_seq=5 ttl=63 time=23.0 ms
 ```
+
 ## STEP #8 - Network Ports and 802.1x Port Profiles
 
  In a Campus environment, we typically configure a range of ports within a leaf switch to have the same charactestics (vlan, mode, portfast, NAC, etc...).  AVD provides a way to define a **Port Profile** and then apply it to a range of ports on multiple switches.
