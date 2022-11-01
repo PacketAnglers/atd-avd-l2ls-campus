@@ -45,7 +45,7 @@ From the Programmibility IDE Explorer:
 - Click on the **group_vars/ATD.yml** file to open an editor tab.
 - Update lines 5, 49, and 50.  **Follow** instructions per line below.
 
-### Update Line 5 - ansible_password
+### Update Line 5
 
 - Update `ansible_password` key (line 5) with your unique lab password found on the **Usernames and Passwords** section of your lab topology screen.
 
