@@ -19,7 +19,7 @@ This repository builds a L2LS Campus fabric on the Dual Data Center ATD Lab. The
 5. [Build Configs](#step-#5-build-configs)
 6. [Deploy Configs](#step-#6-deploy-configs)
 7. [Test Traffic](#step-#7-test-traffic)
-8. [Network Ports and 802.1x Port Profiles](#step-#8-network-ports-and-802.1x-port-profiles)
+8. [Network Ports and 802.1x Port Profiles](#step-\#8-network-ports-and-802.1x-port-profiles)
 
 ## STEP #1 - Launch Programmability IDE
 
