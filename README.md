@@ -56,7 +56,7 @@ From the Programmibility IDE Explorer:
 # group_vars/ATD.yml
 #
 # switch credentials
-ansible_password: aristaxl6a
+ansible_password: XXXXXXXXXXX
 ```
 
 ### Line 49 - sha512_password
