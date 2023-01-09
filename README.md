@@ -145,7 +145,7 @@ make deploy-cvp
 
 ## STEP #7 - Test Traffic
 
-Connect to `s1-host` and ping `s1-host2`
+Connect to `s1-host1` and ping `s1-host2`
 
 ``` bash
 ping 10.20.20.101
