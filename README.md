@@ -151,6 +151,8 @@ Connect to `s1-host` and ping `s1-host2`
 ping 10.20.20.101
 ```
 
+Optional
+
 ## STEP #8 - Network Ports and 802.1x Port Profiles
 
  In a Campus environment, we typically configure a range of ports within a leaf switch to have the same charactestics (vlan, mode, portfast, NAC, etc...).  AVD provides a way to define a **Port Profile** and then apply it to a range of ports on multiple switches.
@@ -225,4 +227,4 @@ make build
 
 View updated configs in `intended/configs`.
 
-> You will not be able to dpeloy these configs as those ports do not exist on your virtual lab switches.
+> Note: You will not be able to deploy these configs as those ports do not exist on your virtual lab switches.
