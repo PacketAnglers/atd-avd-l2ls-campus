@@ -40,7 +40,7 @@ leaf:
     IDF1:
       mlag: true
       filter:
-        tags: [ 10 ]
+        tags: [ "10" ]
       nodes:
         s1-leaf1:
           id: 3
@@ -53,7 +53,7 @@ leaf:
     IDF2:
       mlag: true
       filter:
-        tags: [ 20 ]
+        tags: [ "20" ]
       nodes:
         s1-leaf3:
           id: 5
