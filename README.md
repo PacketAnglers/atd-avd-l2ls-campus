@@ -1,4 +1,4 @@
-# Cleveland ATD - 11/02/2022
+# ATD AVD - L2LS CAMPUS
 
 This repository builds a L2LS Campus fabric on the Dual Data Center ATD Lab. The below diagram respresents a single Campus Fabric within the larger Lab topology. Using AVD, we will build and deploy configurations for the 2 spines and 2 leaf pairs.  In addition we will explore adding port configurations to support 802.1x NAC features.
 
@@ -47,7 +47,7 @@ bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
 - Change working directory. All other commands will be executed from here.
 
 ``` bash
-cd labfiles/cleveland-atd-avd
+cd labfiles/atd-avd-l2ls-campus
 ```
 
 ## STEP #4 - Update Passwords and SSH Keys
@@ -56,7 +56,7 @@ The ATD Lab switches are preconfigured with MD5 encrypted passwords.  AVD uses s
 
 From the Programmibility IDE Explorer:
 
-- Navigate to the `labfiles/cleveland-atd-avd/group_vars` folder.
+- Navigate to the `labfiles/atd-avd-l2ls-campus/group_vars` folder.
 - Click on the **group_vars/ATD.yml** file to open an editor tab.
 - Update lines 5, 49, and 50.  **Follow** instructions per line below.
 
