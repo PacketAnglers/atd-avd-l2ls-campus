@@ -99,8 +99,8 @@ Your file should look similar to below.  Use values your show command output abo
 # local users to be configured on switch
 local_users:
   arista:
-    sha512_password: "XXXXXXXXXXXXXX"
-    ssh_key: "ssh-rsa XXXXXXXXXXXXXXXXXXX"
+    sha512_password: "$6$LwdjxNwO8..."
+    ssh_key: "ssh-rsa AAAABBB123C..."
 ```
 
 ## STEP #5 - Build Configs
