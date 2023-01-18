@@ -57,7 +57,7 @@ The ATD Lab switches are preconfigured with MD5 encrypted passwords.  AVD uses s
 From the Programmibility IDE Explorer:
 
 - Navigate to the `labfiles/atd-avd-l2ls-campus/group_vars` folder.
-- Click on file `**ATD.yml**` to open an editor tab.
+- Click on file `ATD.yml` to open an editor tab.
 - Update lines 5, 49, and 50.
 
 **Instructions** per line below.
