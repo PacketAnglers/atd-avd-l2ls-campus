@@ -1,6 +1,7 @@
 ---
 - name: Deploy Switch configuration
   hosts: ATD_FABRIC
+  gather_facts: false
   tasks:
 
     - name: Deploy Configuration to Device

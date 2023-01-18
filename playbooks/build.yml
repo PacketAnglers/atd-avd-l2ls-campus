@@ -1,6 +1,7 @@
 ---
 - name: Build Switch configuration
   hosts: ATD_FABRIC
+  gather_facts: false
   tasks:
 
     - name: Generate Structured Variables per Device
