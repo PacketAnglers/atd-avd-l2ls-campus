@@ -117,7 +117,7 @@ make build
 
 ## STEP #6 - Deploy Configs
 
-Use either one of the methods below to deploy your configurations to your switches.
+Use one of the two methods below to deploy your configurations to your switches.
 
 ### Method #1 - eAPI Direct switch (~28 secs)
 
