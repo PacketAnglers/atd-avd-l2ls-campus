@@ -202,7 +202,7 @@ network_ports:
 # # ---------------- s1-leaf3/4 ----------------
 
 #   - switches:
-#       - s1-leaf[34] # regex match s1-leaf1 & s1-leaF2
+#       - s1-leaf[34] # regex match s1-leaf3 & s1-leaF4
 #     switch_ports:
 #       - Ethernet7-48
 #     profile: PP-DOT1X
