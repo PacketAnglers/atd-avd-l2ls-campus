@@ -177,7 +177,7 @@ interface EthernetX
    spanning-tree bpduguard enable
 ```
 
-To configure ports Ethernet7-48 on s1-leaf1 and s1-leaf2 with the above configuration open file `group_vars/ATD_FABRIC_PORTS.yml`  and uncomment lines 25-57.
+To configure ports Ethernet7-48 on all four leaf switches with the above configuration, open file `group_vars/ATD_FABRIC_PORTS.yml`  and uncomment lines 25-57.
 
 ``` yaml
 network_ports:
