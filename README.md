@@ -139,7 +139,7 @@ It does the following:
 4. Attaches configlets to devices
 5. Creates Tasks
 
-> You will need to create a Change Control in CVP to execute the tasks.  This can be automated as well with setting `execute_tasks: true` in the playbook.
+> You will need to create a Change Control in CVP to execute the tasks.  This can be automated by setting `execute_tasks: true` in the playbook `deploy-cvp.yml`.
 
 ``` bash
 make deploy-cvp
