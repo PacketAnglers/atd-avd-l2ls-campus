@@ -2,7 +2,7 @@
 
 # Credentials for CVP and EOS Switches
 ansible_user: arista
-ansible_password: XXXXXXXXXXX # Update password with lab credentials
+ansible_password: "{{ lookup('env', 'LABPASSPHRASE') }}" # method to automatically grab unique lab password from environment variable that was previously set
 ansible_network_os: arista.eos.eos
 # Configure privilege escalation
 ansible_become: true
@@ -45,9 +45,7 @@ local_users:
   arista:
     privilege: 15
     role: network-admin
-    # Update sha512_password and ssh_key (leave ssh-rsa in place) from one of your Lab switches
-    sha512_password: "XXXXXXXXXXXXXXXX"
-    ssh_key: "ssh-rsa XXXXXXXXXXXXXXXXX"
+    sha512_password: "{{ ansible_password | password_hash('sha512',  '65534') }}"
 
 # OOB Management network default gateway.
 mgmt_gateway: 192.168.0.1

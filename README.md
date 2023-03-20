@@ -13,9 +13,9 @@ This repository builds a L2LS Campus fabric on the Dual Data Center ATD Lab. The
 ## Summary of Steps
 
 1. [Launch Programmability IDE](#step-1---launch-programmability-ide)
-2. [Install AVD](#step-2---install-avd)
-3. [Change Working Directory](#step-3---change-working-directory)
-4. [Update Passwords and SSH Keys](#step-4---update-passwords-and-ssh-keys)
+2. [Clone Repository to Lab IDE](#step-2---clone-repository-to-lab-ide)
+3. [Update AVD to Latest Version](#step-3---update-avd-to-latest-version)
+4. [Set Lab Password environment variable](#step-4---set-lab-password-environment-variable)
 5. [Build Configs](#step-5---build-configs)
 6. [Deploy Configs](#step-6---deploy-configs)
 7. [Test Traffic](#step-7---test-traffic)
@@ -32,75 +32,33 @@ This repository builds a L2LS Campus fabric on the Dual Data Center ATD Lab. The
 
 ![Topo](images/programmability_ide.png)
 
-## STEP #2 - Install AVD
+## STEP #2 - Clone Repository to Lab IDE
 
-- From the terminal session, run the following installation script.
-
-``` bash
-bash -c "$(curl http://www.packetanglers.com/installavd.sh)"
-```
-
-## STEP #3 - Change Working Directory
-
-- Change working directory. All other commands will be executed from here.
+- Change into `labfiles` sub-directory.  From here, clone the repo and change into directory. Remaining commands will be executed from here.
 
 ``` bash
-cd labfiles/atd-avd-l2ls-campus
+cd /home/coder/project/labfiles
+git clone https://github.com/PacketAnglers/atd-avd-l2ls-campus.git
+cd atd-avd-l2ls-campus
 ```
 
-## STEP #4 - Update Passwords and SSH Keys
+## STEP #3 - Update AVD to Latest Version
 
-The ATD Lab switches are preconfigured with MD5 encrypted passwords.  AVD uses sha512 passwords so we need to convert the current MD5 password to sha512.  **You will need to login to a switch to do this step.**
-
-From the Programmibility IDE Explorer:
-
-- Navigate to the `labfiles/atd-avd-l2ls-campus/group_vars` folder.
-- Click on file `ATD.yml` to open an editor tab.
-- Update lines 5, 49, and 50.
-
-**Instructions** per line below.
-
-### Update Line 5
-
-- Update `ansible_password` key (line 5) with your unique lab password found on the **Usernames and Passwords** section of your lab topology screen.
-
-``` yaml
-# group_vars/ATD.yml
-#
-# switch credentials
-ansible_password: XXXXXXXXXXX
-```
-
-### Update Lines 49 & 50
-
-- First, convert the current `arista` username type 5 password to a sha512 by running the following commands on one of your switches. Substitute XXXXXXX with your Lab's unique password.
+- From the terminal session, run the following commands.
 
 ``` bash
-config
-username arista privilege 15 role network-admin secret XXXXXXXX
+ansible-galaxy collection install arista.avd arista.cvp --force
+export ARISTA_AVD_DIR=$(ansible-galaxy collection list arista.avd --format yaml | head -1 | cut -d: -f1)
+pip3 config set global.disable-pip-version-check true
+pip3 install -r ${ARISTA_AVD_DIR}/arista/avd/requirements.txt
 ```
 
-- Retrieve password and ssh key for user `arista`.
+## STEP #4 - Set Lab Password environment variable
+
+The following command sets the environment variable LABPASSPHRASE which is used later for connecting to your lab switches and creating local user password.
 
 ``` bash
-show run section username | grep arista
-```
-
-- Update the sha512_password and ssh_key with the above values. _Remember to keep the double quotes and DO NOT REMOVE `ssh-rsa` from the ssh_key._
-
-- line 49 - `sha512_password:`
-- line 50 - `ssh_key:`
-
-Your file should look similar to below.  Use values your show command output above, as they are unique to your switches.
-
-``` yaml
-# group_vars/ATD.yml
-#
-# local users to be configured on switch
-local_users:
-  arista:
-    sha512_password: "$6$LwdjxNwO8..."
-    ssh_key: "ssh-rsa AAAABBB123C..."
+export LABPASSPHRASE=`cat /home/coder/.config/code-server/config.yaml| grep "password:" | awk '{print $2}'`
 ```
 
 ## STEP #5 - Build Configs
