@@ -34,7 +34,7 @@ This repository builds a L2LS Campus fabric on the Dual Data Center ATD Lab. The
 
 ## STEP #2 - Clone Repository to Lab IDE
 
-- Clone the repo and change into directory. Remaining commands will be executed from here.
+- Change into `labfiles` sub-directory.  From here, clone the repo and change into directory. Remaining commands will be executed from here.
 
 ``` bash
 cd /home/coder/project/labfiles
